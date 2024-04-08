@@ -12,7 +12,8 @@ const PORT = process.env.SERVER_PORT;
 app.use(express.static(path.join(__dirname, 'public'))) // Allow express to serve static files
 
 app.get('/', (req, res) => {
-    res.sendFile()
+    // Render static html file (temporary)
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 })
 
 // Run server
