@@ -55,7 +55,19 @@ const formControl = {
             console.error('Something went wrong:', error);
             return res.redirect('/');
         }  
-    }
+    },
+
+    async deleteForm(req, res) {
+        try {
+            const apptID = req.body.deleteApptId;
+            console.log(apptID);
+            pool.deleteAppointment(apptID);
+            return res.redirect('/');
+        } catch (error) {
+            console.error('Error deleting:', error);
+            return res.redirect('/');
+        }
+    },
 
 }
 
