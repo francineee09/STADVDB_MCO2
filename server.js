@@ -31,6 +31,7 @@ app.set('views', './views');
 app.get('/', indexControl.showHome);
 app.post('/submit-form', formControl.submitForm);
 app.post('/update', formControl.updateForm);
+app.post('/delete', formControl.deleteForm);
 
 // Run server
 // webpage at http://localhost:3000/
