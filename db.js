@@ -101,6 +101,7 @@ async function searchAppointment(tablename, values, data){
             console.log(result);
     })
 }
+
 // View a set of text-based reports; set of reports is to be determined by the team
 
 

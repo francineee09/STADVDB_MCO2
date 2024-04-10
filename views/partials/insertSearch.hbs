@@ -1,4 +1,4 @@
-<section class="input-container">
+        <section class="input-container">
             <!-- Insert new appointment -->
             <div class="insert-outer-container">
                 <div class="insert-inner-container">
@@ -26,26 +26,42 @@
 
                     <div class="row">
                         <div class="col">
-                            <input type="text" class="form-control" placeholder="Region" aria-label="Region">
+                            <input type="text" class="form-control" placeholder="Doctor ID" aria-label="Doctor ID">
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" placeholder="Hospital name" aria-label="Hospital name">
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Island" aria-label="Island">
+                            <input type="text" class="form-control" placeholder="Main Specialty" aria-label="Main Specialty">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col">
-                            <input type="text" class="form-control" placeholder="Doctor ID" aria-label="Doctor ID">
+                            <input type="text" class="form-control" placeholder="Clinic ID" aria-label="Clinic ID">
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" placeholder="Clinic ID" aria-label="Clinic ID">
+                            <input type="text" class="form-control" placeholder="Hospital Name" aria-label="Hospital Name">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="City" aria-label="City">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Region" aria-label="Region">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Province" aria-label="Province">
                         </div>
                     </div>
 
                     <div class="dropdown-row">
+                        <label for="island"> Island: </label>
+                        <select name="island" id="island">
+                        <option value="luzon"> Luzon </option>
+                        <option value="visayas"> Visayas </option>
+                        <option value="mindanao"> Mindanao </option>
+                        </select>
+
                         <label for="status"> Status: </label>
                         <select name="status" id="status">
                         <option value="complete"> Complete </option>
@@ -60,12 +76,6 @@
                         <option value="consultation"> Consultation </option>
                         <option value="inpatietn"> Inpatient </option>
                         </select>
-
-                        {{!-- <label for="virtual"> Virtual: </label>
-                        <select name="virtual" id="virtual">
-                        <option value="true"> TRUE </option>
-                        <option value="false"> FALSE </option>
-                        </select> --}}
                     </div>
 
                     <div class="btn-container">
