@@ -47,14 +47,13 @@ const formControl = {
                 console.log('No fields to update.');
                 return res.status(200).send('No fields to update.');
             }
-            
+
             await pool.updateAppointment(updateInfo.tablename, updateInfo.apptid, updateInfo.values, updateInfo.data);
             console.log(updateInfo);
-            res.status(200).send('Data updated successfully.');
-    
+            return res.redirect('/');
         } catch (error) {
             console.error('Something went wrong:', error);
-            res.status(500).send('Error updating data.');
+            return res.redirect('/');
         }  
     }
 
