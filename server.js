@@ -7,6 +7,7 @@ const app = express();
 
 // controllers
 const indexControl = require("./controllers/indexControl");
+const formControl = require("./controllers/formControl");
 
 // Constants
 const PORT = process.env.SERVER_PORT;
@@ -28,6 +29,7 @@ app.set('views', './views');
 
 // render index
 app.get('/', indexControl.showHome);
+app.post('/submit-form', formControl.submitForm);
 
 // Run server
 // webpage at http://localhost:3000/

@@ -4,11 +4,11 @@
                 <div class="insert-inner-container">
                     <h3> Insert an Appointment </h3>
 
-                    <form action="#" method="post">
+                    <form action="/submit-form" method="post">
                         <div class="row">
                             <!-- apptid -->
                             <div class="col">
-                                <input type="text" class="form-control" id="insertApptId" placeholder="Appointment ID" required>
+                                <input type="text" class="form-control" id="insertApptId" name="apptid", placeholder="Appointment ID" required>
                             </div>
                             <!-- queuedate -->
                             <div class="col">
@@ -19,52 +19,52 @@
                         <div class="row">
                             <!-- pxid-->
                             <div class="col">
-                                <input type="text" class="form-control" id="insertPatientID" placeholder="Patient ID" required>
+                                <input type="text" class="form-control" id="insertPatientID" name="pxid" placeholder="Patient ID" required>
                             </div>
                             <!-- patients_age -->
                             <div class="col">
-                                <input type="number" class="form-control" id="insertPatientAge" placeholder="Patient age" required>
+                                <input type="number" class="form-control" id="insertPatientAge" name="patients_age" placeholder="Patient age" required>
                             </div>
                             <!--- gender -->
                             <div class="col">
-                                <input type="text" class="form-control" id="insertPatientGender" placeholder="Patient Gender" required>
+                                <input type="text" class="form-control" id="insertPatientGender" name="gender" placeholder="Patient Gender" required>
                             </div>
                         </div>
 
                         <div class="row">
                             <!--- doctorid -->
                             <div class="col">
-                                <input type="text" class="form-control" id="insertDoctorID" placeholder="Doctor ID" required>
+                                <input type="text" class="form-control" id="insertDoctorID" name="doctorid" placeholder="Doctor ID" required>
                             </div>
                             <!-- mainspecialty -->
                             <div class="col">
-                                <input type="text" class="form-control" id="insertMainSpecialty" placeholder="Main Specialty" required>
+                                <input type="text" class="form-control" id="insertMainSpecialty" name="mainspecialty" placeholder="Main Specialty" required>
                             </div>
                         </div>
 
                         <div class="row">
                             <!-- clinicid -->
                             <div class="col">
-                                <input type="text" class="form-control" id="insertClientID" placeholder="Clinic ID" required>
+                                <input type="text" class="form-control" id="insertClientID" name="clinicid" placeholder="Clinic ID" required>
                             </div>
                             <!-- hospitalname -->
                             <div class="col">
-                                <input type="text" class="form-control" id="insertHospitalName" placeholder="Hospital Name" required>
+                                <input type="text" class="form-control" id="insertHospitalName" name="hospitalname" placeholder="Hospital Name" required>
                             </div>
                         </div>
 
                         <div class="row">
                             <!-- city -->
                             <div class="col">
-                                <input type="text" class="form-control" id="insertCity" placeholder="City" required>
+                                <input type="text" class="form-control" id="insertCity" name="city" placeholder="City" required>
                             </div>
                             <!-- regionname -->
                             <div class="col">
-                                <input type="text" class="form-control" id="insertRegion" placeholder="Region" required>
+                                <input type="text" class="form-control" id="insertRegion" name="regionname" placeholder="Region" required>
                             </div>
                             <!-- province -->
                             <div class="col">
-                                <input type="text" class="form-control" id="insertProvince" placeholder="Province" required>
+                                <input type="text" class="form-control" id="insertProvince" name="province" placeholder="Province" required>
                             </div>
                         </div>
 

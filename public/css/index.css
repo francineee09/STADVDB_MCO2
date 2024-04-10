@@ -106,7 +106,8 @@ label {
 }
 
 #insert-submit-btn:hover,
-#view-submit-btn:hover {
+#view-submit-btn:hover,
+#update-submit-btn:hover {
     background-color: rgb(137, 32, 32);
     border-color: rgb(137, 32, 32);
 }
