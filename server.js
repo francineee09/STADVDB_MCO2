@@ -30,6 +30,7 @@ app.set('views', './views');
 // render index
 app.get('/', indexControl.showHome);
 app.post('/submit-form', formControl.submitForm);
+app.post('/update', formControl.updateForm);
 
 // Run server
 // webpage at http://localhost:3000/

@@ -16,12 +16,46 @@ const formControl = {
             console.error('insert successful: ');
             res.status(200).send('Data inserted successfully.');
             console.log(parameters);
-            //return res.redirect('/');
+            return res.redirect('/');
         }catch(error){
             console.error('something went wrong: ');
-            //return res.redirect('/');
             res.status(500).send('Error inserting data.');
+            return res.redirect('/');
         }   
+    },
+
+    async updateForm(req, res){
+
+        try {
+            const updateInfo = {
+                tablename: process.env.TABLE,
+                apptid: req.body.updateApptId,
+                values: [], 
+                data: []
+            };
+    
+           
+            const fieldsToUpdate = ['updateType', 'updateQueuedate', 'updateStatus', 'updatePatientID', 'updatePatientAge', 'updatePatientGender', 'updateDoctorID', 'updateMainSpecialty', 'updateClinicID', 'updateHospitalName', 'updateCity', 'updateProvince', 'updateRegion', 'updateIsland'];
+            fieldsToUpdate.forEach(field => {
+                if (req.body[field]) {
+                    updateInfo.values.push(field.slice(6).toLowerCase());
+                    updateInfo.data.push(req.body[field]);
+                }
+            });
+
+            if (updateInfo.values.length === 0) {
+                console.log('No fields to update.');
+                return res.status(200).send('No fields to update.');
+            }
+            
+            await pool.updateAppointment(updateInfo.tablename, updateInfo.apptid, updateInfo.values, updateInfo.data);
+            console.log(updateInfo);
+            res.status(200).send('Data updated successfully.');
+    
+        } catch (error) {
+            console.error('Something went wrong:', error);
+            res.status(500).send('Error updating data.');
+        }  
     }
 
 }

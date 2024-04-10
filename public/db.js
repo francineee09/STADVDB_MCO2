@@ -60,7 +60,7 @@ function generateUPDATEQuery(tablename, apptid, values, data){
 
 // Perform UPDATE statement on database based on values
 async function updateAppointment(tablename, apptid, values, data){
-    const updateStatement = generateUpdateQuery(tablename, apptid, values, data);
+    const updateStatement = generateUPDATEQuery(tablename, apptid, values, data);
     pool.query(updateStatement, (error, result, fields) => {
         if(error)
             console.error('Error has occurred in deleting row: ', error);
