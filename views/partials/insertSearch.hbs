@@ -122,7 +122,7 @@
                         <div class="row">
                             <!-- pxid-->
                             <div class="col">
-                                <input type="text" class="form-control" id="updatePatientID" name="updatePatientID" placeholder="Patient ID">
+                                <input type="text" class="form-control" id="updatePatientID" name="updatePatients_ID" placeholder="Patient ID">
                             </div>
                             <!-- patients_age -->
                             <div class="col">
@@ -130,7 +130,7 @@
                             </div>
                             <!--- gender -->
                             <div class="col">
-                                <input type="text" class="form-control" id="updatePatientGender" name="updatePatientGender" placeholder="Patient Gender">
+                                <input type="text" class="form-control" id="updatePatientGender" name="updateGender" placeholder="Patient Gender">
                             </div>
                         </div>
 
@@ -227,11 +227,11 @@
                 <div class="view-inner-container">
                     <h3> Search and View Appointments </h3>
                     
-                    <form action="#", method="post"> 
+                    <form action="/search", method="post"> 
                         <div class="row">
                             <!-- apptid -->
                             <div class="col">
-                                <input type="text" class="form-control" id="searchApptId" placeholder="Appointment ID" required>
+                                <input type="text" class="form-control" id="searchApptId" placeholder="Appointment ID">
                             </div>
                             <!-- queuedate -->
                             <div class="col">
@@ -344,6 +344,25 @@
                 </tr>
 
                 <!-- table results -->
+                 {{#each searchResult}}
+                    <tr class="appointment-results">
+                        <td>{{this.apptId}}</td>
+                        <td>{{this.type}}</td>
+                        <td>{{this.queuedate}}</td>
+                        <td>{{this.pxid}} </td>
+                        <td>{{this.patients_age}} </td>
+                        <td>{{this.gender}} </td>
+                        <td>{{this.doctorid}} </td>
+                        <td>{{this.mainspecialty}} </td>
+                        <td>{{this.clinicid}} </td>
+                        <td>{{this.hospitalname}} </td>
+                        <td>{{this.city}} </td>
+                        <td>{{this.province}} </td>
+                        <td>{{this.regionname}} </td>
+                        <td>{{this.island}} </td>
+                    </tr>
+                {{/each}}
+
                 <tr>
                     
                 </tr>

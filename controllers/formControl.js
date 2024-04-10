@@ -35,7 +35,7 @@ const formControl = {
             };
     
            
-            const fieldsToUpdate = ['updateType', 'updateQueuedate', 'updateStatus', 'updatePatientID', 'updatePatientAge', 'updatePatientGender', 'updateDoctorID', 'updateMainSpecialty', 'updateClinicID', 'updateHospitalName', 'updateCity', 'updateProvince', 'updateRegion', 'updateIsland'];
+            const fieldsToUpdate = ['updateType', 'updateQueuedate', 'updateStatus', 'updatePatientID', 'updatePatients_Age', 'updateGender', 'updateDoctorID', 'updateMainSpecialty', 'updateClinicID', 'updateHospitalName', 'updateCity', 'updateProvince', 'updateRegion', 'updateIsland'];
             fieldsToUpdate.forEach(field => {
                 if (req.body[field]) {
                     updateInfo.values.push(field.slice(6).toLowerCase());
@@ -68,6 +68,35 @@ const formControl = {
             return res.redirect('/');
         }
     },
+
+    async searchForm(req, res) {
+        try {
+            const searchInfo = {
+                tablename: process.env.TABLE,
+                values: [],
+                data: []
+            };
+    
+            const fieldsToSearch = ['searchApptId', 'searchType', 'searchQueuedate', 'searchStatus', 'searchPxId', 'searchPatients_Age', 'searchGender', 'searchDoctorID', 'searchMainSpecialty', 'searchClinicID', 'searchHospitalName', 'searchCity', 'searchProvince', 'searchRegion', 'searchIsland'];
+    
+            fieldsToSearch.forEach(field => {
+                if (req.body[field]) {
+                    searchInfo.values.push(field.slice(6).toLowerCase());
+                    searchInfo.data.push(req.body[field]);
+                }
+            });
+    
+            const searchResult = await pool.searchAppointment(searchInfo.tablename, searchInfo.values, searchInfo.data);
+            console.log(searchResult);
+            console.log("Searched successfully!");
+            
+            res.render('index', { searchResult:searchResult });
+        } catch (error) {
+            console.error('Something went wrong:', error);
+            return res.status(500).send('Internal Server Error');
+        }
+    }
+
 
 }
 
