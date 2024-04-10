@@ -8,70 +8,70 @@
                         <div class="row">
                             <!-- apptid -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Appointment ID" required>
+                                <input type="text" class="form-control" id="insertApptId" placeholder="Appointment ID" required>
                             </div>
                             <!-- queuedate -->
                             <div class="col">
-                                <input type="datetime-local" class="form-control" placeholder="Appointment Date" required>
+                                <input type="datetime-local" class="form-control"  id="insertQueuedate" placeholder="Appointment Date" required>
                             </div>
                         </div>
                         
                         <div class="row">
                             <!-- pxid-->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Patient ID" required>
+                                <input type="text" class="form-control" id="insertPatientID" placeholder="Patient ID" required>
                             </div>
                             <!-- patients_age -->
                             <div class="col">
-                                <input type="number" class="form-control" placeholder="Patient age" required>
+                                <input type="number" class="form-control" id="insertPatientAge" placeholder="Patient age" required>
                             </div>
                             <!--- gender -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Patient Gender" required>
+                                <input type="text" class="form-control" id="insertPatientGender" placeholder="Patient Gender" required>
                             </div>
                         </div>
 
                         <div class="row">
                             <!--- doctorid -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Doctor ID" required>
+                                <input type="text" class="form-control" id="insertDoctorID" placeholder="Doctor ID" required>
                             </div>
                             <!-- mainspecialty -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Main Specialty" required>
+                                <input type="text" class="form-control" id="insertMainSpecialty" placeholder="Main Specialty" required>
                             </div>
                         </div>
 
                         <div class="row">
                             <!-- clinicid -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Clinic ID" required>
+                                <input type="text" class="form-control" id="insertClientID" placeholder="Clinic ID" required>
                             </div>
                             <!-- hospitalname -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Hospital Name" required>
+                                <input type="text" class="form-control" id="insertHospitalName" placeholder="Hospital Name" required>
                             </div>
                         </div>
 
                         <div class="row">
                             <!-- city -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="City" required>
+                                <input type="text" class="form-control" id="insertCity" placeholder="City" required>
                             </div>
                             <!-- regionname -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Region" required>
+                                <input type="text" class="form-control" id="insertRegion" placeholder="Region" required>
                             </div>
-                            <!-- mainspecialty -->
+                            <!-- province -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Province" required>
+                                <input type="text" class="form-control" id="insertProvince" placeholder="Province" required>
                             </div>
                         </div>
 
                         <div class="dropdown-row">
                             <!-- island -->
                             <label for="island"> Island: </label>
-                            <select name="island" id="island" required>
+                            <select name="island" id="insertIsland" required>
                                 <option value="luzon"> Luzon </option>
                                 <option value="visayas"> Visayas </option>
                                 <option value="mindanao"> Mindanao </option>
@@ -79,7 +79,7 @@
 
                             <!-- status -->
                             <label for="status"> Status: </label>
-                            <select name="status" id="status" required>
+                            <select name="status" id="insertStatus" required>
                                 <option value="complete"> Complete </option>
                                 <option value="queued"> Queued </option>
                                 <option value="serving"> Serving </option>
@@ -89,7 +89,7 @@
 
                             <!-- type -->
                             <label for="type"> Type: </label>
-                            <select name="type" id="type" required>
+                            <select name="type" id="insertType" required>
                                 <option value="consultation"> Consultation </option>
                                 <option value="inpatietn"> Inpatient </option>
                             </select>
@@ -108,73 +108,73 @@
                     <h3> Update an Appointment </h3>
                     
                     <form action="#", method="post"> 
-                           <div class="row">
+                        <div class="row">
                             <!-- apptid -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Appointment ID" required>
+                                <input type="text" class="form-control" id="updateApptId" placeholder="Appointment ID" required>
                             </div>
                             <!-- queuedate -->
                             <div class="col">
-                                <input type="datetime-local" class="form-control" placeholder="Appointment Date">
+                                <input type="datetime-local" class="form-control"  id="updateQueuedate" placeholder="Appointment Date">
                             </div>
                         </div>
                         
                         <div class="row">
                             <!-- pxid-->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Patient ID">
+                                <input type="text" class="form-control" id="updatePatientID" placeholder="Patient ID">
                             </div>
                             <!-- patients_age -->
                             <div class="col">
-                                <input type="number" class="form-control" placeholder="Patient age">
+                                <input type="number" class="form-control" id="updatePatientAge" placeholder="Patient age">
                             </div>
                             <!--- gender -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Patient Gender">
+                                <input type="text" class="form-control" id="updatePatientGender" placeholder="Patient Gender">
                             </div>
                         </div>
 
                         <div class="row">
                             <!--- doctorid -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Doctor ID">
+                                <input type="text" class="form-control" id="updateDoctorID" placeholder="Doctor ID">
                             </div>
                             <!-- mainspecialty -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Main Specialty">
+                                <input type="text" class="form-control" id="updateMainSpecialty" placeholder="Main Specialty">
                             </div>
                         </div>
 
                         <div class="row">
                             <!-- clinicid -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Clinic ID">
+                                <input type="text" class="form-control" id="updateClientID" placeholder="Clinic ID">
                             </div>
                             <!-- hospitalname -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Hospital Name">
+                                <input type="text" class="form-control" id="updateHospitalName" placeholder="Hospital Name">
                             </div>
                         </div>
 
                         <div class="row">
                             <!-- city -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="City">
+                                <input type="text" class="form-control" id="updateCity" placeholder="City">
                             </div>
                             <!-- regionname -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Region">
+                                <input type="text" class="form-control" id="updateRegion" placeholder="Region">
                             </div>
-                            <!-- mainspecialty -->
+                            <!-- province -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Province">
+                                <input type="text" class="form-control" id="updateProvince" placeholder="Province">
                             </div>
                         </div>
 
                         <div class="dropdown-row">
                             <!-- island -->
                             <label for="island"> Island: </label>
-                            <select name="island" id="island">
+                            <select name="island" id="updateIsland">
                                 <option value="luzon"> Luzon </option>
                                 <option value="visayas"> Visayas </option>
                                 <option value="mindanao"> Mindanao </option>
@@ -182,7 +182,7 @@
 
                             <!-- status -->
                             <label for="status"> Status: </label>
-                            <select name="status" id="status">
+                            <select name="status" id="updateStatus">
                                 <option value="complete"> Complete </option>
                                 <option value="queued"> Queued </option>
                                 <option value="serving"> Serving </option>
@@ -192,7 +192,7 @@
 
                             <!-- type -->
                             <label for="type"> Type: </label>
-                            <select name="type" id="type">
+                            <select name="type" id="updateType" required>
                                 <option value="consultation"> Consultation </option>
                                 <option value="inpatietn"> Inpatient </option>
                             </select>
@@ -211,73 +211,73 @@
                     <h3> Search and View Appointments </h3>
                     
                     <form action="#", method="post"> 
-                           <div class="row">
+                        <div class="row">
                             <!-- apptid -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Appointment ID" required>
+                                <input type="text" class="form-control" id="searchApptId" placeholder="Appointment ID" required>
                             </div>
                             <!-- queuedate -->
                             <div class="col">
-                                <input type="datetime-local" class="form-control" placeholder="Appointment Date">
+                                <input type="datetime-local" class="form-control"  id="searchQueuedate" placeholder="Appointment Date">
                             </div>
                         </div>
                         
                         <div class="row">
                             <!-- pxid-->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Patient ID">
+                                <input type="text" class="form-control" id="searchPatientID" placeholder="Patient ID">
                             </div>
                             <!-- patients_age -->
                             <div class="col">
-                                <input type="number" class="form-control" placeholder="Patient age">
+                                <input type="number" class="form-control" id="searchPatientAge" placeholder="Patient age">
                             </div>
                             <!--- gender -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Patient Gender">
+                                <input type="text" class="form-control" id="searchPatientGender" placeholder="Patient Gender">
                             </div>
                         </div>
 
                         <div class="row">
                             <!--- doctorid -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Doctor ID">
+                                <input type="text" class="form-control" id="searchDoctorID" placeholder="Doctor ID">
                             </div>
                             <!-- mainspecialty -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Main Specialty">
+                                <input type="text" class="form-control" id="searchMainSpecialty" placeholder="Main Specialty">
                             </div>
                         </div>
 
                         <div class="row">
                             <!-- clinicid -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Clinic ID">
+                                <input type="text" class="form-control" id="searchClientID" placeholder="Clinic ID">
                             </div>
                             <!-- hospitalname -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Hospital Name">
+                                <input type="text" class="form-control" id="searchHospitalName" placeholder="Hospital Name">
                             </div>
                         </div>
 
                         <div class="row">
                             <!-- city -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="City">
+                                <input type="text" class="form-control" id="searchCity" placeholder="City">
                             </div>
                             <!-- regionname -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Region">
+                                <input type="text" class="form-control" id="searchRegion" placeholder="Region">
                             </div>
-                            <!-- mainspecialty -->
+                            <!-- province -->
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Province">
+                                <input type="text" class="form-control" id="searchProvince" placeholder="Province">
                             </div>
                         </div>
 
                         <div class="dropdown-row">
                             <!-- island -->
                             <label for="island"> Island: </label>
-                            <select name="island" id="island">
+                            <select name="island" id="searchIsland">
                                 <option value="luzon"> Luzon </option>
                                 <option value="visayas"> Visayas </option>
                                 <option value="mindanao"> Mindanao </option>
@@ -285,7 +285,7 @@
 
                             <!-- status -->
                             <label for="status"> Status: </label>
-                            <select name="status" id="status">
+                            <select name="status" id="searchStatus">
                                 <option value="complete"> Complete </option>
                                 <option value="queued"> Queued </option>
                                 <option value="serving"> Serving </option>
@@ -295,7 +295,7 @@
 
                             <!-- type -->
                             <label for="type"> Type: </label>
-                            <select name="type" id="type">
+                            <select name="type" id="searchType" required>
                                 <option value="consultation"> Consultation </option>
                                 <option value="inpatietn"> Inpatient </option>
                             </select>

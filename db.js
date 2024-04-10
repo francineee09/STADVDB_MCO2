@@ -106,4 +106,3 @@ async function searchAppointment(tablename, values, data){
 
 
 module.exports = {pool, insertAppointment, updateAppointment, deleteAppointment, searchAppointment}
-
