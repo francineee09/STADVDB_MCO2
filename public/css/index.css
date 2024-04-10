@@ -81,7 +81,7 @@ label {
 /* View */
 .view-inner-container {
     width: 50rem;
-    height: 14rem;
+    height: 30em;
     border: 2px solid rgb(141, 67, 67);
     margin-left: 10rem;
     margin-right: 10rem;
@@ -96,7 +96,8 @@ label {
 }
 
 #insert-submit-btn,
-#view-submit-btn {
+#view-submit-btn,
+#update-submit-btn {
     background-color: rgb(141, 67, 67);
     border-color: rgb(141, 67, 67);
     color: white;

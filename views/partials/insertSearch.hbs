@@ -96,7 +96,110 @@
                         </div>
 
                         <div class="btn-container">
-                            <button id="insert-submit-btn"> Submit </button>
+                            <button id="insert-submit-btn"> Insert </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Update an Appointment -->
+            <div class="view-outer-container">
+                <div class="view-inner-container">
+                    <h3> Update an Appointment </h3>
+                    
+                    <form action="#", method="post"> 
+                           <div class="row">
+                            <!-- apptid -->
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Appointment ID">
+                            </div>
+                            <!-- queuedate -->
+                            <div class="col">
+                                <input type="datetime-local" class="form-control" placeholder="Appointment Date">
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <!-- pxid-->
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Patient ID">
+                            </div>
+                            <!-- patients_age -->
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Patient age">
+                            </div>
+                            <!--- gender -->
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Patient Gender">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!--- doctorid -->
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Doctor ID">
+                            </div>
+                            <!-- mainspecialty -->
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Main Specialty">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- clinicid -->
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Clinic ID">
+                            </div>
+                            <!-- hospitalname -->
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Hospital Name">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- city -->
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="City">
+                            </div>
+                            <!-- regionname -->
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Region">
+                            </div>
+                            <!-- mainspecialty -->
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Province">
+                            </div>
+                        </div>
+
+                        <div class="dropdown-row">
+                            <!-- island -->
+                            <label for="island"> Island: </label>
+                            <select name="island" id="island">
+                                <option value="luzon"> Luzon </option>
+                                <option value="visayas"> Visayas </option>
+                                <option value="mindanao"> Mindanao </option>
+                            </select>
+
+                            <!-- status -->
+                            <label for="status"> Status: </label>
+                            <select name="status" id="status">
+                                <option value="complete"> Complete </option>
+                                <option value="queued"> Queued </option>
+                                <option value="serving"> Serving </option>
+                                <option value="skip"> Skip </option>
+                                <option value="cancel"> Cancel </option>
+                            </select>
+
+                            <!-- type -->
+                            <label for="type"> Type: </label>
+                            <select name="type" id="type">
+                                <option value="consultation"> Consultation </option>
+                                <option value="inpatietn"> Inpatient </option>
+                            </select>
+                        </div>
+                        
+                        <div class="btn-container">
+                            <button id="update-submit-btn"> Update </button>
                         </div>
                     </form>
                 </div>
@@ -108,17 +211,98 @@
                     <h3> Search and View Appointments </h3>
                     
                     <form action="#", method="post"> 
-                        <div class="row">
+                           <div class="row">
+                            <!-- apptid -->
                             <div class="col">
-                                <input type="date" class="form-control" placeholder="From" required>
+                                <input type="text" class="form-control" placeholder="Appointment ID">
                             </div>
+                            <!-- queuedate -->
                             <div class="col">
-                                <input type="date" class="form-control" placeholder="To" required>
+                                <input type="datetime-local" class="form-control" placeholder="Appointment Date">
                             </div>
                         </div>
                         
+                        <div class="row">
+                            <!-- pxid-->
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Patient ID">
+                            </div>
+                            <!-- patients_age -->
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Patient age">
+                            </div>
+                            <!--- gender -->
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Patient Gender">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!--- doctorid -->
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Doctor ID">
+                            </div>
+                            <!-- mainspecialty -->
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Main Specialty">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- clinicid -->
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Clinic ID">
+                            </div>
+                            <!-- hospitalname -->
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Hospital Name">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- city -->
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="City">
+                            </div>
+                            <!-- regionname -->
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Region">
+                            </div>
+                            <!-- mainspecialty -->
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Province">
+                            </div>
+                        </div>
+
+                        <div class="dropdown-row">
+                            <!-- island -->
+                            <label for="island"> Island: </label>
+                            <select name="island" id="island">
+                                <option value="luzon"> Luzon </option>
+                                <option value="visayas"> Visayas </option>
+                                <option value="mindanao"> Mindanao </option>
+                            </select>
+
+                            <!-- status -->
+                            <label for="status"> Status: </label>
+                            <select name="status" id="status">
+                                <option value="complete"> Complete </option>
+                                <option value="queued"> Queued </option>
+                                <option value="serving"> Serving </option>
+                                <option value="skip"> Skip </option>
+                                <option value="cancel"> Cancel </option>
+                            </select>
+
+                            <!-- type -->
+                            <label for="type"> Type: </label>
+                            <select name="type" id="type">
+                                <option value="consultation"> Consultation </option>
+                                <option value="inpatietn"> Inpatient </option>
+                            </select>
+                        </div>
+                        
                         <div class="btn-container">
-                            <button id="view-submit-btn"> Submit </button>
+                            <button id="view-submit-btn"> Search </button>
                         </div>
                     </form>
                 </div>
