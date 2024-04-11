@@ -100,7 +100,7 @@ async function searchAppointment(tablename, values, data){
             console.error('Error has occurred in searching row: ', error);
         else
             console.log(result);
-    })
+    })  
 }
 
 // View a set of text-based reports; set of reports is to be determined by the team

@@ -205,9 +205,9 @@
                 </div>
             </div>
 
-<!-- Delete -->
-            <div class="view-outer-container">
-                <div class="view-inner-container">
+            <!-- Delete -->
+            <div class="delete-outer-container">
+                <div class="delete-inner-container">
                     <h3> Delete an appointment </h3>
                     
                     <form action="/delete", method="post"> 
@@ -215,12 +215,11 @@
                                 <input type="text" class="form-control" id="deleteApptId" name="deleteApptId" placeholder="Appointment ID" required>
                         </div>
                         <div class="btn-container">
-                            <button id="view-submit-btn"> delete </button>
+                            <button id="view-submit-btn"> Delete </button>
                         </div>
                     </form>
                 </div>
             </div>
-
 
             <!-- Search and View an Appointment -->
             <div class="view-outer-container">
@@ -231,70 +230,70 @@
                         <div class="row">
                             <!-- apptid -->
                             <div class="col">
-                                <input type="text" class="form-control" id="searchApptId" placeholder="Appointment ID">
+                                <input type="text" class="form-control" id="searchApptId" name="searchApptId" placeholder="Appointment ID">
                             </div>
                             <!-- queuedate -->
                             <div class="col">
-                                <input type="datetime-local" class="form-control"  id="searchQueuedate" placeholder="Appointment Date">
+                                <input type="datetime-local" class="form-control"  id="searchQueuedate" name="searchQueuedate" placeholder="Appointment Date">
                             </div>
                         </div>
                         
                         <div class="row">
                             <!-- pxid-->
                             <div class="col">
-                                <input type="text" class="form-control" id="searchPatientID" placeholder="Patient ID">
+                                <input type="text" class="form-control" id="searchPatientID" name="searchPxId" placeholder="Patient ID">
                             </div>
                             <!-- patients_age -->
                             <div class="col">
-                                <input type="number" class="form-control" id="searchPatientAge" placeholder="Patient age">
+                                <input type="number" class="form-control" id="searchPatientAge"  name="searchPatients_Age" placeholder="Patient age">
                             </div>
                             <!--- gender -->
                             <div class="col">
-                                <input type="text" class="form-control" id="searchPatientGender" placeholder="Patient Gender">
+                                <input type="text" class="form-control" id="searchPatientGender" name="searchGender" nameplaceholder="Patient Gender">
                             </div>
                         </div>
 
                         <div class="row">
                             <!--- doctorid -->
                             <div class="col">
-                                <input type="text" class="form-control" id="searchDoctorID" placeholder="Doctor ID">
+                                <input type="text" class="form-control" id="searchDoctorID" name="searchDoctorId" placeholder="Doctor ID">
                             </div>
                             <!-- mainspecialty -->
                             <div class="col">
-                                <input type="text" class="form-control" id="searchMainSpecialty" placeholder="Main Specialty">
+                                <input type="text" class="form-control" id="searchMainSpecialty"  name="searchMainSpecialty" placeholder="Main Specialty">
                             </div>
                         </div>
 
                         <div class="row">
                             <!-- clinicid -->
                             <div class="col">
-                                <input type="text" class="form-control" id="searchClientID" placeholder="Clinic ID">
+                                <input type="text" class="form-control" id="searchClientID" name="searchClientId" placeholder="Clinic ID">
                             </div>
                             <!-- hospitalname -->
                             <div class="col">
-                                <input type="text" class="form-control" id="searchHospitalName" placeholder="Hospital Name">
+                                <input type="text" class="form-control" id="searchHospitalName" name="searchHospitalName" placeholder="Hospital Name">
                             </div>
                         </div>
 
                         <div class="row">
                             <!-- city -->
                             <div class="col">
-                                <input type="text" class="form-control" id="searchCity" placeholder="City">
+                                <input type="text" class="form-control" id="searchCity" name="searchCity" placeholder="City">
                             </div>
                             <!-- regionname -->
                             <div class="col">
-                                <input type="text" class="form-control" id="searchRegion" placeholder="Region">
+                                <input type="text" class="form-control" id="searchRegion" name="searchRegion" placeholder="Region">
                             </div>
                             <!-- province -->
                             <div class="col">
-                                <input type="text" class="form-control" id="searchProvince" placeholder="Province">
+                                <input type="text" class="form-control" id="searchProvince" name="searchProvince" placeholder="Province">
                             </div>
                         </div>
 
                         <div class="dropdown-row">
                             <!-- island -->
                             <label for="island"> Island: </label>
-                            <select name="island" id="searchIsland">
+                            <select name="searchIsland" id="searchIsland">
                                 <option value="luzon"> Luzon </option>
                                 <option value="visayas"> Visayas </option>
                                 <option value="mindanao"> Mindanao </option>
@@ -302,7 +301,7 @@
 
                             <!-- status -->
                             <label for="status"> Status: </label>
-                            <select name="status" id="searchStatus">
+                            <select name="searchStatus" id="searchStatus">
                                 <option value="complete"> Complete </option>
                                 <option value="queued"> Queued </option>
                                 <option value="serving"> Serving </option>
@@ -312,7 +311,7 @@
 
                             <!-- type -->
                             <label for="type"> Type: </label>
-                            <select name="type" id="searchType" required>
+                            <select name="searchType" id="searchType" required>
                                 <option value="consultation"> Consultation </option>
                                 <option value="inpatietn"> Inpatient </option>
                             </select>
@@ -344,9 +343,9 @@
                 </tr>
 
                 <!-- table results -->
-                 {{#each searchResult}}
+                {{#each searchResult}}
                     <tr class="appointment-results">
-                        <td>{{this.apptId}}</td>
+                        <td>{{this.apptid}}</td>
                         <td>{{this.type}}</td>
                         <td>{{this.queuedate}}</td>
                         <td>{{this.pxid}} </td>
@@ -362,9 +361,5 @@
                         <td>{{this.island}} </td>
                     </tr>
                 {{/each}}
-
-                <tr>
-                    
-                </tr>
             </table>
-        </section>
+        </section> 

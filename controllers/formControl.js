@@ -87,28 +87,16 @@ const formControl = {
             });
     
             const searchResult = await pool.searchAppointment(searchInfo.tablename, searchInfo.values, searchInfo.data);
-            console.log(searchResult);
+            console.log(searchInfo);
             console.log("Searched successfully!");
-            
+            // return res.redirect('/');
+
             res.render('index', { searchResult:searchResult });
         } catch (error) {
             console.error('Something went wrong:', error);
             return res.status(500).send('Internal Server Error');
         }
     }
-
-
 }
 
 module.exports = formControl;
-
-
-// exports.submitForm = (req, res) => {
-//     const { name } = req.body;
-//     const query = "INSERT INTO `names` (name) VALUES (?)";
-//     pool.query(query, [name], (error, results) => {
-//         if (error) throw error;
-//         console.log("1 record inserted");
-//         res.redirect('/'); // Redirect back to home page after successful insertion
-//     });
-// };
