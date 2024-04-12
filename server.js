@@ -37,6 +37,7 @@ app.post('/search',formControl.searchForm);
 app.post('/genHospi', reportControl.renderTopHospital);
 app.post('/genCity', reportControl.renderTopCity);
 app.post('/genSpec', reportControl.renderTopSpecialization);
+
 // Run server
 // webpage at http://localhost:3000/
 app.listen(PORT, () => {

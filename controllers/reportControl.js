@@ -16,8 +16,8 @@ const reportControl = {
                             <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Hospital Count</th>
                         </tr>
                         <tr class="top-hospital-results" style="background-color: #ffffff;">
-                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${topHospital.hospitalname}</td>
-                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${topHospital.hospital_count}</td>
+                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${topHospital[0][0].hospitalname}</td>
+                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${topHospital[0][0].hospital_count}</td>
                         </tr>
                     </table>
                 </div>
@@ -45,8 +45,8 @@ const reportControl = {
                             <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">City Count</th>
                         </tr>
                         <tr class="top-city-results" style="background-color: #ffffff;">
-                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${topCity.city}</td>
-                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${topCity.city_count}</td>
+                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${topCity[0][0].city}</td>
+                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${topCity[0][0].city_count}</td>
                         </tr>
                     </table>
                 </div>
@@ -72,8 +72,8 @@ const reportControl = {
                             <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Popularity</th>
                         </tr>
                         <tr class="top-specialization-results" style="background-color: #ffffff;">
-                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${topSpecialization.mainspecialty}</td>
-                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${topSpecialization.popularity}</td>
+                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${topSpecialization[0][0].mainspecialty}</td>
+                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${topSpecialization[0][0].popularity}</td>
                         </tr>
                     </table>
                 </div>

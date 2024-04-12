@@ -122,9 +122,26 @@ label {
     height: 7vh;
 }
 
+#top-city-btn,
+#top-special-btn,
+#top-hosp-btn {
+    background-color: rgb(141, 67, 67);
+    border-color: rgb(141, 67, 67);
+    color: white;
+    width: 15vw;
+    height: 8.5vh;
+}
+
 #insert-submit-btn:hover,
 #view-submit-btn:hover,
 #update-submit-btn:hover {
+    background-color: rgb(137, 32, 32);
+    border-color: rgb(137, 32, 32);
+}
+
+#top-city-btn:hover,
+#top-special-btn:hover,
+#top-hosp-btn:hover {
     background-color: rgb(137, 32, 32);
     border-color: rgb(137, 32, 32);
 }
