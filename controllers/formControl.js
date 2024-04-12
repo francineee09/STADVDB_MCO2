@@ -155,7 +155,7 @@ const formControl = {
             console.error('Something went wrong:', error);
             return res.status(500).send('Error searching data.');
         }
-    }
+    },
 }
 
 module.exports = formControl;

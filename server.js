@@ -8,6 +8,7 @@ const app = express();
 // controllers
 const indexControl = require("./controllers/indexControl");
 const formControl = require("./controllers/formControl");
+const reportControl = require("./controllers/reportControl");
 
 // Constants
 const PORT = process.env.SERVER_PORT;
@@ -33,7 +34,9 @@ app.post('/insert', formControl.insertForm);
 app.post('/update', formControl.updateForm);
 app.post('/delete', formControl.deleteForm);
 app.post('/search',formControl.searchForm);
-
+app.post('/genHospi', reportControl.renderTopHospital);
+app.post('/genCity', reportControl.renderTopCity);
+app.post('/genSpec', reportControl.renderTopSpecialization);
 // Run server
 // webpage at http://localhost:3000/
 app.listen(PORT, () => {
