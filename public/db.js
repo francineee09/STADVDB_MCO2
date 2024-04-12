@@ -11,19 +11,28 @@ const pool = createPool({
     connectionLimit: 10,
 })
 
+const central = createPool({
+    host: process.env.CENTRAL_HOST,
+    port: process.env.CENTRAL_PORT,
+    user: process.env.CENTRAL_USER,
+    password: process.env.CENTRAL_PASSWORD,
+    database: process.env.CENTRAL_DATABASE,
+    connectionLimit: 10,
+})
+
 // Insert new appointment record to the database
 async function insertAppointment(apptid, type, queuedate, status, pxid, patients_age, gender, doctorid, mainspecialty, clinicid, hospitalname, city, province, regionname, island){
     if(process.env.NODE == 'CENTRAL'){
         if(island == 'luzon'){
             console.log('INSERTING INTO LUZON NODE');
-            pool.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`, (error, result, fields) => {
+            central.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`, (error, result, fields) => {
                 if(error){ // error occurred in setting isolation level
                     console.error('Error occurred in setting isolation level: ', error);
                     return false;
                 }
                 else{ // no error in setting isolation level, begin transaction
                     console.log('Isolation level set');
-                    pool.query('START TRANSACTION;', (error, result, fields) => {
+                    central.query('START TRANSACTION;', (error, result, fields) => {
                         if(error){ // error occurred in starting transaction
                             console.error('Error occured in starting transaction', error);
                             return false;
@@ -31,13 +40,13 @@ async function insertAppointment(apptid, type, queuedate, status, pxid, patients
                         else{ // no error occurred in starting transaction, execute SQL
                             console.log('Transaction started');
                             // sql statement
-                            pool.query(`
+                            central.query(`
                                 INSERT INTO ${process.env.DATABASE}.${process.env.LUZON_TABLE}(apptid, type, queuedate, status, pxid, patients_age, gender, doctorid, mainspecialty, clinicid, hospitalname, city, province, regionname, island)
                                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) FOR UPDATE;
                                 `, [apptid, type, queuedate, status, pxid, patients_age, gender, doctorid, mainspecialty, clinicid, hospitalname, city, province, regionname, island], (error, result, fields) => {
                                 if(error){
                                     console.error('Error has occurred in executing statement: ', error);
-                                    pool.query(`ROLLBACK;`, (error, result, fields) => {
+                                    central.query(`ROLLBACK;`, (error, result, fields) => {
                                         if(error){ // error occurred in performing ROLLBACK
                                             console.error('Error occurred in performing ROLLBACK: ', error);
                                             return false;
@@ -50,7 +59,7 @@ async function insertAppointment(apptid, type, queuedate, status, pxid, patients
                                 }
                                 else{
                                     console.log(`Data inserted successfully for row with appt id: ${apptid}`);
-                                    pool.query(`COMMIT;`, (error, result, fields) => {
+                                    central.query(`COMMIT;`, (error, result, fields) => {
                                         if(error){
                                             console.error('Error occurred in performing COMMIT: ', error);
                                             return false;
@@ -70,14 +79,14 @@ async function insertAppointment(apptid, type, queuedate, status, pxid, patients
         }
         else{
             console.log('INSERTING INTO VIZMIN NODE');
-            pool.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`, (error, result, fields) => {
+            central.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`, (error, result, fields) => {
                 if(error){ // error occurred in setting isolation level
                     console.error('Error occurred in setting isolation level: ', error);
                     return false;
                 }
                 else{ // no error in setting isolation level, begin transaction
                     console.log('Isolation level set');
-                    pool.query('START TRANSACTION;', (error, result, fields) => {
+                    central.query('START TRANSACTION;', (error, result, fields) => {
                         if(error){ // error occurred in starting transaction
                             console.error('Error occured in starting transaction', error);
                             return false;
@@ -85,13 +94,13 @@ async function insertAppointment(apptid, type, queuedate, status, pxid, patients
                         else{ // no error occurred in starting transaction, execute SQL
                             console.log('Transaction started');
                             // sql statement
-                            pool.query(`
+                            central.query(`
                                 INSERT INTO ${process.env.DATABASE}.${process.env.VIZMIN_TABLE}(apptid, type, queuedate, status, pxid, patients_age, gender, doctorid, mainspecialty, clinicid, hospitalname, city, province, regionname, island)
                                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) FOR UPDATE;
                             `, [apptid, type, queuedate, status, pxid, patients_age, gender, doctorid, mainspecialty, clinicid, hospitalname, city, province, regionname, island], (error, result, fields) => {
                                 if(error){
                                     console.error('Error has occurred in executing statement: ', error);
-                                    pool.query(`ROLLBACK;`, (error, result, fields) => {
+                                    central.query(`ROLLBACK;`, (error, result, fields) => {
                                         if(error){ // error occurred in performing ROLLBACK
                                             console.error('Error occurred in performing ROLLBACK: ', error);
                                             return false;
@@ -104,7 +113,7 @@ async function insertAppointment(apptid, type, queuedate, status, pxid, patients
                                 }
                                 else{
                                     console.log(`Data inserted successfully for row with appt id: ${apptid}`);
-                                    pool.query(`COMMIT;`, (error, result, fields) => {
+                                    central.query(`COMMIT;`, (error, result, fields) => {
                                         if(error){
                                             console.error('Error occurred in performing COMMIT: ', error);
                                             return false;
@@ -237,9 +246,15 @@ async function insertAppointment(apptid, type, queuedate, status, pxid, patients
 }
 }
 // Delete an appointment based on apptid
-async function deleteAppointment(apptid){
-    // pool.query(`SELECT island FROM `)
-    pool.query(`DELETE FROM ${process.env.TABLE} WHERE apptid = ?`, [apptid], (error, result, fields) => {
+async function deleteAppointment(apptid, island){
+    if(island == 'luzon'){
+        pool.query(`SET TRANSACTION ISOLATION LEVEL READ`)
+    }
+    else{
+
+    }
+
+    pool.query(`DELETE FROM ${process.env.LUZON_TABLE} WHERE apptid = ?`, [apptid], (error, result, fields) => {
         if(error)
             console.error('Error has occurred in deleting row: ', error);
         else
