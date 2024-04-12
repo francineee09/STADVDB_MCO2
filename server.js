@@ -29,7 +29,7 @@ app.set('views', './views');
 
 // render index
 app.get('/', indexControl.showHome);
-app.post('/submit-form', formControl.submitForm);
+app.post('/insert', formControl.insertForm);
 app.post('/update', formControl.updateForm);
 app.post('/delete', formControl.deleteForm);
 app.post('/search',formControl.searchForm);

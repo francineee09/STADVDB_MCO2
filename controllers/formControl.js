@@ -2,8 +2,7 @@ const pool = require('../public/db');
 
 const formControl = {
 
-    async submitForm(req, res){
-
+    async insertForm(req, res){
         try{
             const parameters = {apptid, type, queuedate, statuss, pxid, 
                 patients_age, gender, doctorid, mainspecialty, 
@@ -13,19 +12,19 @@ const formControl = {
             await pool.insertAppointment(parameters.apptid, parameters.type, parameters.queuedate, parameters.statuss, parameters.pxid, 
                 parameters.patients_age, parameters.gender, parameters.doctorid, parameters.mainspecialty, 
                 parameters.clinicid, parameters.hospitalname, parameters.city, parameters.province, parameters.regionname, parameters.island);
-            console.error('insert successful: ');
-            res.status(200).send('Data inserted successfully.');
-            console.log(parameters);
-            return res.redirect('/');
-        }catch(error){
-            console.error('something went wrong: ');
-            res.status(500).send('Error inserting data.');
-            return res.redirect('/');
+            
+            console.error('Insert successful');
+
+            const backButtonHtml = '<button onclick="window.history.back()">Back</button>';
+            const successMessage = 'Data inserted successfully. ' + backButtonHtml;
+            return res.status(200).send(successMessage);
+        } catch (error) {
+            console.error('Something went wrong: ', error);
+            return res.status(500).send('Error inserting data.');
         }   
     },
 
     async updateForm(req, res){
-
         try {
             const updateInfo = {
                 tablename: process.env.TABLE,
@@ -34,8 +33,7 @@ const formControl = {
                 data: []
             };
     
-           
-            const fieldsToUpdate = ['updateType', 'updateQueuedate', 'updateStatus', 'updatePatientID', 'updatePatients_Age', 'updateGender', 'updateDoctorID', 'updateMainSpecialty', 'updateClinicID', 'updateHospitalName', 'updateCity', 'updateProvince', 'updateRegion', 'updateIsland'];
+            const fieldsToUpdate = ['updateType', 'updateQueuedate', 'updateStatus', 'updatePatientID', 'updatePatients_Age', 'updateGender', 'updateDoctorID', 'updateMainSpecialty', 'updateClinicID', 'updateHospitalName', 'updateCity', 'updateProvince', 'updateRegionName', 'updateIsland'];
             fieldsToUpdate.forEach(field => {
                 if (req.body[field]) {
                     updateInfo.values.push(field.slice(6).toLowerCase());
@@ -50,11 +48,14 @@ const formControl = {
 
             await pool.updateAppointment(updateInfo.tablename, updateInfo.apptid, updateInfo.values, updateInfo.data);
             console.log(updateInfo);
-            return res.redirect('/');
+
+            const backButtonHtml = '<button onclick="window.history.back()">Back</button>';
+            const successMessage = 'Data updated successfully. ' + backButtonHtml;
+            return res.status(200).send(successMessage);
         } catch (error) {
-            console.error('Something went wrong:', error);
-            return res.redirect('/');
-        }  
+            console.error('Something went wrong: ', error);
+            return res.status(500).send('Error updating data.');
+        }   
     },
 
     async deleteForm(req, res) {
@@ -62,11 +63,14 @@ const formControl = {
             const apptID = req.body.deleteApptId;
             console.log(apptID);
             pool.deleteAppointment(apptID);
-            return res.redirect('/');
+
+            const backButtonHtml = '<button onclick="window.history.back()">Back</button>';
+            const successMessage = 'Data deleted successfully. ' + backButtonHtml;
+            return res.status(200).send(successMessage);
         } catch (error) {
-            console.error('Error deleting:', error);
-            return res.redirect('/');
-        }
+            console.error('Something went wrong: ', error);
+            return res.status(500).send('Error deleting data.');
+        }   
     },
 
     async searchForm(req, res) {
@@ -77,7 +81,7 @@ const formControl = {
                 data: []
             };
     
-            const fieldsToSearch = ['searchApptId', 'searchType', 'searchQueuedate', 'searchStatus', 'searchPxId', 'searchPatients_Age', 'searchGender', 'searchDoctorID', 'searchMainSpecialty', 'searchClinicID', 'searchHospitalName', 'searchCity', 'searchProvince', 'searchRegion', 'searchIsland'];
+            const fieldsToSearch = ['searchApptId', 'searchType', 'searchQueuedate', 'searchStatus', 'searchPxId', 'searchPatients_Age', 'searchGender', 'searchDoctorID', 'searchMainSpecialty', 'searchClinicID', 'searchHospitalName', 'searchCity', 'searchProvince', 'searchRegionName', 'searchIsland'];
     
             fieldsToSearch.forEach(field => {
                 if (req.body[field]) {
@@ -107,8 +111,8 @@ const formControl = {
                         <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Clinic ID</th>
                         <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Hospital Name</th>
                         <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">City</th>
-                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Region</th>
                         <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Province</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Region</th>
                         <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Island</th>
                     </tr>
         `;
@@ -148,7 +152,7 @@ const formControl = {
         res.send(tableHtml); // Send the constructed HTML table
         } catch (error) {
             console.error('Something went wrong:', error);
-            return res.status(500).send('Internal Server Error');
+            return res.status(500).send('Error searching data.');
         }
     }
 }
