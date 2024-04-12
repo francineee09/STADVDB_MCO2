@@ -1,8 +1,8 @@
         <section class="input-container">
             
             <!-- Search and View an Appointment -->
-            <div class="view-outer-container">
-                <div class="view-inner-container">
+            <div class="search-outer-container">
+                <div class="search-inner-container">
                     <h3> Search and View Appointments </h3>
                     
                     <form action="/search", method="post"> 
@@ -26,9 +26,14 @@
                             <div class="col">
                                 <input type="number" class="form-control" id="searchPatientAge"  name="searchPatients_Age" placeholder="Patient age">
                             </div>
-                            <!--- gender -->
-                            <div class="col">
-                                <input type="text" class="form-control" id="searchPatientGender" name="searchGender" nameplaceholder="Patient Gender">
+
+                            <div class="col" id="col-gender">
+                                <!--- gender -->
+                                <label for="gender"> Gender: </label>
+                                <select name="searchGender" id="searchGender">
+                                    <option value="Female"> Female </option>
+                                    <option value="Male"> Male </option>
+                                </select>
                             </div>
                         </div>
 
@@ -59,13 +64,35 @@
                             <div class="col">
                                 <input type="text" class="form-control" id="searchCity" name="searchCity" placeholder="City">
                             </div>
-                            <!-- regionname -->
-                            <div class="col">
-                                <input type="text" class="form-control" id="searchRegion" name="searchRegion" placeholder="Region">
-                            </div>
+
                             <!-- province -->
                             <div class="col">
                                 <input type="text" class="form-control" id="searchProvince" name="searchProvince" placeholder="Province">
+                            </div>
+                        </div>
+
+                        <div class="row" id="row-regionname">
+                            <div class="col" id="col-regionname">
+                                <!--- region -->
+                                <select name="searchRegionName" id="searchRegionName">
+                                    <option value="National Capital Region (NCR)"> National Capital Region (NCR) </option>
+                                    <option value="Ilocos Region (I)"> Ilocos Region (I) </option>
+                                    <option value="Caraga (XIII)"> Caraga (XIII) </option>
+                                    <option value="Cagayan Valley (II)"> Cagayan Valley (II) </option>
+                                    <option value="Central Visayas (VII)"> Central Visayas (VII) </option>
+                                    <option value="CALABARZON (IV-A)"> CALABARZON (IV-A) </option>
+                                    <option value="Western Visayas (VI)"> Western Visayas (VI) </option>
+                                    <option value="Central Luzon (III)"> Central Luzon (III) </option>
+                                    <option value="MIMAROPA (IV-B)"> MIMAROPA (IV-B) </option>
+                                    <option value="Bicol Region (V))"> Bicol Region (V) </option>
+                                    <option value="Davao Region (XI)"> Davao Region (XI) </option>
+                                    <option value="SOCCSKSARGEN (Cotabato Region) (XII)"> SOCCSKSARGEN (Cotabato Region) (XII) </option>
+                                    <option value="Northern Mindanao (X)"> Northern Mindanao (X) </option>
+                                    <option value="Zamboanga Peninsula (IX)"> Zamboanga Peninsula (IX) </option>
+                                    <option value="Eastern Visayas (VIII)"> Eastern Visayas (VIII) </option>
+                                    <option value="Cordillera Administrative Region (CAR))"> Cordillera Administrative Region (CAR) </option>
+                                    <option value="Bangsamoro Autonomous Region in Muslim Mindanao (BARMM)"> Bangsamoro Autonomous Region in Muslim Mindanao (BARMM) (VIII) </option>
+                                </select>
                             </div>
                         </div>
 
@@ -73,26 +100,26 @@
                             <!-- island -->
                             <label for="island"> Island: </label>
                             <select name="searchIsland" id="searchIsland">
-                                <option value="luzon"> Luzon </option>
-                                <option value="visayas"> Visayas </option>
-                                <option value="mindanao"> Mindanao </option>
+                                <option value="Luzon"> Luzon </option>
+                                <option value="Visayas"> Visayas </option>
+                                <option value="Mindanao"> Mindanao </option>
                             </select>
 
                             <!-- status -->
                             <label for="status"> Status: </label>
                             <select name="searchStatus" id="searchStatus">
-                                <option value="complete"> Complete </option>
-                                <option value="queued"> Queued </option>
+                                <option value="Complete"> Complete </option>
+                                <option value="Queued"> Queued </option>
                                 <option value="serving"> Serving </option>
-                                <option value="skip"> Skip </option>
-                                <option value="cancel"> Cancel </option>
+                                <option value="Skip"> Skip </option>
+                                <option value="Cancel"> Cancel </option>
                             </select>
 
                             <!-- type -->
                             <label for="type"> Type: </label>
                             <select name="searchType" id="searchType" required>
-                                <option value="consultation"> Consultation </option>
-                                <option value="inpatietn"> Inpatient </option>
+                                <option value="Consultation"> Consultation </option>
+                                <option value="Inpatient"> Inpatient </option>
                             </select>
                         </div>
                         
@@ -129,9 +156,15 @@
                             <div class="col">
                                 <input type="number" class="form-control" id="insertPatientAge" name="patients_age" placeholder="Patient age" required>
                             </div>
+
                             <!--- gender -->
-                            <div class="col">
-                                <input type="text" class="form-control" id="insertPatientGender" name="gender" placeholder="Patient Gender" required>
+                            <div class="col" id="col-gender">
+                                <!--- gender -->
+                                <label for="gender"> Gender: </label>
+                                <select name="gender" id="insertGender">
+                                    <option value="Female"> Female </option>
+                                    <option value="Male"> Male </option>
+                                </select>
                             </div>
                         </div>
 
@@ -162,13 +195,34 @@
                             <div class="col">
                                 <input type="text" class="form-control" id="insertCity" name="city" placeholder="City" required>
                             </div>
-                            <!-- regionname -->
-                            <div class="col">
-                                <input type="text" class="form-control" id="insertRegion" name="regionname" placeholder="Region" required>
-                            </div>
                             <!-- province -->
                             <div class="col">
                                 <input type="text" class="form-control" id="insertProvince" name="province" placeholder="Province" required>
+                            </div>
+                        </div>
+
+                        <div class="row" id="row-regionname">
+                            <div class="col" id="col-regionname">
+                                <!--- region -->
+                                <select name="regionName" id="regionname">
+                                    <option value="National Capital Region (NCR)"> National Capital Region (NCR) </option>
+                                    <option value="Ilocos Region (I)"> Ilocos Region (I) </option>
+                                    <option value="Caraga (XIII)"> Caraga (XIII) </option>
+                                    <option value="Cagayan Valley (II)"> Cagayan Valley (II) </option>
+                                    <option value="Central Visayas (VII)"> Central Visayas (VII) </option>
+                                    <option value="CALABARZON (IV-A)"> CALABARZON (IV-A) </option>
+                                    <option value="Western Visayas (VI)"> Western Visayas (VI) </option>
+                                    <option value="Central Luzon (III)"> Central Luzon (III) </option>
+                                    <option value="MIMAROPA (IV-B)"> MIMAROPA (IV-B) </option>
+                                    <option value="Bicol Region (V))"> Bicol Region (V) </option>
+                                    <option value="Davao Region (XI)"> Davao Region (XI) </option>
+                                    <option value="SOCCSKSARGEN (Cotabato Region) (XII)"> SOCCSKSARGEN (Cotabato Region) (XII) </option>
+                                    <option value="Northern Mindanao (X)"> Northern Mindanao (X) </option>
+                                    <option value="Zamboanga Peninsula (IX)"> Zamboanga Peninsula (IX) </option>
+                                    <option value="Eastern Visayas (VIII)"> Eastern Visayas (VIII) </option>
+                                    <option value="Cordillera Administrative Region (CAR))"> Cordillera Administrative Region (CAR) </option>
+                                    <option value="Bangsamoro Autonomous Region in Muslim Mindanao (BARMM)"> Bangsamoro Autonomous Region in Muslim Mindanao (BARMM) (VIII) </option>
+                                </select>
                             </div>
                         </div>
 
@@ -184,18 +238,18 @@
                             <!-- status -->
                             <label for="status"> Status: </label>
                             <select name="statuss" id="insertStatus" required>
-                                <option value="complete"> Complete </option>
-                                <option value="queued"> Queued </option>
-                                <option value="serving"> Serving </option>
-                                <option value="skip"> Skip </option>
-                                <option value="cancel"> Cancel </option>
+                                <option value="Complete"> Complete </option>
+                                <option value="Queued"> Queued </option>
+                                <option value="Serving"> Serving </option>
+                                <option value="Skip"> Skip </option>
+                                <option value="Cancel"> Cancel </option>
                             </select>
 
                             <!-- type -->
                             <label for="type"> Type: </label>
                             <select name="type" id="insertType" required>
-                                <option value="consultation"> Consultation </option>
-                                <option value="inpatietn"> Inpatient </option>
+                                <option value="Consultation"> Consultation </option>
+                                <option value="Inpatient"> Inpatient </option>
                             </select>
                         </div>
 
@@ -207,8 +261,8 @@
             </div>
 
             <!-- Update an Appointment -->
-            <div class="view-outer-container">
-                <div class="view-inner-container">
+            <div class="update-outer-container">
+                <div class="update-inner-container">
                     <h3> Update an Appointment </h3>
                     
                     <form action="/update", method="post"> 
@@ -232,9 +286,14 @@
                             <div class="col">
                                 <input type="number" class="form-control" id="updatePatientAge" name="updatePatientAge" placeholder="Patient age">
                             </div>
-                            <!--- gender -->
-                            <div class="col">
-                                <input type="text" class="form-control" id="updatePatientGender" name="updateGender" placeholder="Patient Gender">
+
+                            <div class="col" id="col-gender">
+                                <!--- gender -->
+                                <label for="gender"> Gender: </label>
+                                <select name="updateGender" id="updateGender">
+                                    <option value="Female"> Female </option>
+                                    <option value="Male"> Male </option>
+                                </select>
                             </div>
                         </div>
 
@@ -265,13 +324,34 @@
                             <div class="col">
                                 <input type="text" class="form-control" id="updateCity" name="updateCity" placeholder="City">
                             </div>
-                            <!-- regionname -->
-                            <div class="col">
-                                <input type="text" class="form-control" id="updateRegion" name="updateRegion" placeholder="Region">
-                            </div>
                             <!-- province -->
                             <div class="col">
                                 <input type="text" class="form-control" id="updateProvince" name="updateProvince" placeholder="Province">
+                            </div>
+                        </div>
+
+                        <div class="row" id="row-regionname">
+                            <div class="col" id="col-regionname">
+                                <!--- region -->
+                                <select name="updateRegionName" id="updateRegionName">
+                                    <option value="National Capital Region (NCR)"> National Capital Region (NCR) </option>
+                                    <option value="Ilocos Region (I)"> Ilocos Region (I) </option>
+                                    <option value="Caraga (XIII)"> Caraga (XIII) </option>
+                                    <option value="Cagayan Valley (II)"> Cagayan Valley (II) </option>
+                                    <option value="Central Visayas (VII)"> Central Visayas (VII) </option>
+                                    <option value="CALABARZON (IV-A)"> CALABARZON (IV-A) </option>
+                                    <option value="Western Visayas (VI)"> Western Visayas (VI) </option>
+                                    <option value="Central Luzon (III)"> Central Luzon (III) </option>
+                                    <option value="MIMAROPA (IV-B)"> MIMAROPA (IV-B) </option>
+                                    <option value="Bicol Region (V))"> Bicol Region (V) </option>
+                                    <option value="Davao Region (XI)"> Davao Region (XI) </option>
+                                    <option value="SOCCSKSARGEN (Cotabato Region) (XII)"> SOCCSKSARGEN (Cotabato Region) (XII) </option>
+                                    <option value="Northern Mindanao (X)"> Northern Mindanao (X) </option>
+                                    <option value="Zamboanga Peninsula (IX)"> Zamboanga Peninsula (IX) </option>
+                                    <option value="Eastern Visayas (VIII)"> Eastern Visayas (VIII) </option>
+                                    <option value="Cordillera Administrative Region (CAR))"> Cordillera Administrative Region (CAR) </option>
+                                    <option value="Bangsamoro Autonomous Region in Muslim Mindanao (BARMM)"> Bangsamoro Autonomous Region in Muslim Mindanao (BARMM) (VIII) </option>
+                                </select>
                             </div>
                         </div>
 
@@ -279,26 +359,26 @@
                             <!-- island -->
                             <label for="island"> Island: </label>
                             <select name="updateIsland" id="updateIsland">
-                                <option value="luzon"> Luzon </option>
-                                <option value="visayas"> Visayas </option>
-                                <option value="mindanao"> Mindanao </option>
+                                <option value="Luzon"> Luzon </option>
+                                <option value="Visayas"> Visayas </option>
+                                <option value="Mindanao"> Mindanao </option>
                             </select>
 
                             <!-- status -->
                             <label for="status"> Status: </label>
                             <select name="updateStatus" id="updateStatus">
-                                <option value="complete"> Complete </option>
-                                <option value="queued"> Queued </option>
-                                <option value="serving"> Serving </option>
-                                <option value="skip"> Skip </option>
-                                <option value="cancel"> Cancel </option>
+                                <option value="Complete"> Complete </option>
+                                <option value="Queued"> Queued </option>
+                                <option value="Serving"> Serving </option>
+                                <option value="Skip"> Skip </option>
+                                <option value="Cancel"> Cancel </option>
                             </select>
 
                             <!-- type -->
                             <label for="type"> Type: </label>
                             <select name="updateType" id="updateType" required>
-                                <option value="consultation"> Consultation </option>
-                                <option value="inpatietn"> Inpatient </option>
+                                <option value="Consultation"> Consultation </option>
+                                <option value="Inpatient"> Inpatient </option>
                             </select>
                         </div>
                         

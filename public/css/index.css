@@ -59,27 +59,30 @@ label {
     margin-right: 1rem;
 }
 
-/* Insert */
-.insert-inner-container {
-    width: 50rem;
-    height: 30rem;
-    border: 2px solid rgb(141, 67, 67);
-    margin-left: 10rem;
-    margin-right: 10rem;
-    margin-top: 2rem;
-    margin-bottom: 3rem;
-    padding: 2rem;
-}
-
 .dropdown-row {
     display: flex;
     margin-top: 1rem;
 }
 
-/* View */
-.view-inner-container {
+#col-gender {
+    margin-top: 0.5rem;
+    margin-left: -4rem;
+}
+
+#col-regionname {
+    margin-top: 0.5rem;
+}
+
+#row-regionname {
+    margin-left: 5rem;
+}
+
+/* Search, Update, Insert*/
+.search-inner-container,
+.update-inner-container,
+.insert-inner-container {
     width: 50rem;
-    height: 30em;
+    height: 34rem;
     border: 2px solid rgb(141, 67, 67);
     margin-left: 10rem;
     margin-right: 10rem;

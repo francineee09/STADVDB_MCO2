@@ -11,7 +11,8 @@ const formControl = {
 
             await pool.insertAppointment(parameters.apptid, parameters.type, parameters.queuedate, parameters.statuss, parameters.pxid, 
                 parameters.patients_age, parameters.gender, parameters.doctorid, parameters.mainspecialty, 
-                parameters.clinicid, parameters.hospitalname, parameters.city, parameters.province, parameters.regionname, parameters.island);
+                parameters.clinicid, parameters.hospitalname, parameters.city, parameters.province,
+                parameters.regionname, parameters.island);
             
             console.error('Insert successful');
 
