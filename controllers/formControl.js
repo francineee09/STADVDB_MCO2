@@ -87,32 +87,34 @@ const formControl = {
             });
     
             const searchResult = await pool.searchAppointment(searchInfo.tablename, searchInfo.values, searchInfo.data);
-            //console.log(searchInfo);
+            console.log("Search Result:", searchResult);
             console.log("Searched successfully!");
 
             let tableHtml = '<table class="appointment-table"> \
-                <tr class="appointment-headings"> \
-                    <th>Appointment ID</th> \
-                    <th>Type</th> \
-                    <th>Queuedate</th> \
-                    <th> Status </th> \
-                    <th> Patient ID </th>\
-                    <th> Patient Age </th>\
-                    <th> Patient Gender </th> \
-                    <th> Doctor ID </th>\
-                    <th> Main Specialty </th>\
-                    <th> Clinic ID </th> \
-                    <th> Hospital Name </th> \
-                    <th> City </th> \
-                    <th> Region </th> \
-                    <th> Island </th> \
-                </tr>';
+            <tr class="appointment-headings"> \
+                <th>Appointment ID</th> \
+                <th>Type</th> \
+                <th>Queuedate</th> \
+                <th> Status </th> \
+                <th> Patient ID </th>\
+                <th> Patient Age </th>\
+                <th> Patient Gender </th> \
+                <th> Doctor ID </th>\
+                <th> Main Specialty </th>\
+                <th> Clinic ID </th> \
+                <th> Hospital Name </th> \
+                <th> City </th> \
+                <th> Region </th> \
+                <th> Island </th> \
+            </tr>';
 
+            if (Array.isArray(searchResult) && searchResult.length > 0) {
                 searchResult.forEach(result => {
                     tableHtml += `<tr class="appointment-results"> \
-                        <td>${result.apptId}</td> \
+                        <td>${result.apptid}</td> \
                         <td>${result.type}</td> \
                         <td>${result.queuedate}</td> \
+                        <td>${result.statuss} </td> \
                         <td>${result.pxid} </td> \
                         <td>${result.patients_age} </td> \
                         <td>${result.gender} </td> \
@@ -126,10 +128,12 @@ const formControl = {
                         <td>${result.island} </td> \
                     </tr>`;
                 });
+            } else {
+                tableHtml += `<tr><td colspan="15">No results found</td></tr>`;
+            }
 
-                tableHtml += '</table>';
-                res.send(tableHtml); // Send the constructed HTML table
-            //res.render('index', { searchResult:searchResult });
+            tableHtml += '</table>';
+            res.send(tableHtml); // Send the constructed HTML table
         } catch (error) {
             console.error('Something went wrong:', error);
             return res.status(500).send('Internal Server Error');
