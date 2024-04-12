@@ -338,7 +338,7 @@ async function getTopCity(island){
 
         // execute sql query
         try{
-            topCity = await pool.query(`SELECT city, COUNT(*) AS city_count FROM app_luzon WHERE island="luzon"  GROUP BY city ORDER BY city_count DESC LIMIT 1;`);
+            topCity = await pool.query(`SELECT city, COUNT(*) AS city_count FROM ${process.env.LUZON_TABLE} WHERE island="luzon"  GROUP BY city ORDER BY city_count DESC LIMIT 1;`);
             await pool.query(`COMMIT;`);
             console.log(topCity);
             return topCity;
@@ -358,7 +358,7 @@ async function getTopCity(island){
 
         // execute sql query
         try{
-            topCity = await pool.query(`SELECT city, COUNT(*) AS city_count FROM app_vizmin WHERE island="visayas"  GROUP BY city ORDER BY city_count DESC LIMIT 1;`);
+            topCity = await pool.query(`SELECT city, COUNT(*) AS city_count FROM ${process.env.VIZMIN_TABLE} WHERE island="visayas"  GROUP BY city ORDER BY city_count DESC LIMIT 1;`);
             await pool.query(`COMMIT;`);
             console.log(topCity);
             return topCity;
@@ -378,7 +378,7 @@ async function getTopCity(island){
 
         // execute sql query
         try{
-            topCity = await pool.query(`SELECT city, COUNT(*) AS city_count FROM app_vizmin WHERE island="mindanao"  GROUP BY city ORDER BY city_count DESC LIMIT 1;`);
+            topCity = await pool.query(`SELECT city, COUNT(*) AS city_count FROM ${process.env.VIZMIN_TABLE} WHERE island="mindanao"  GROUP BY city ORDER BY city_count DESC LIMIT 1;`);
             await pool.query(`COMMIT;`);
             console.log(topCity);
             return topCity;
@@ -473,4 +473,156 @@ async function getTopHospital(island){
     }
 }
 
-module.exports = {pool, insertAppointment, updateAppointment, deleteAppointment, searchAppointment}
+async function getTopCity(island){
+    node = process.env.NODE;
+    let topCity = '';
+
+    if((node == 'CENTRAL' || node == 'Luzon') && island == 'Luzon'){ // get text report for luzon (most busy city, most busy hospital, most in demand specialization
+        // set transaction level
+        await pool.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`);
+
+        // start transaction
+        await pool.query(`START TRANSACTION;`);
+
+        // execute sql query
+        try{
+            topCity = await pool.query(`SELECT city, COUNT(*) AS city_count FROM ${process.env.LUZON_TABLE} WHERE island="luzon"  GROUP BY city ORDER BY city_count DESC LIMIT 1;`);
+            await pool.query(`COMMIT;`);
+            console.log(topCity);
+            return topCity;
+        }
+        catch(error){
+            await pool.query(`ROLLBACK`);
+            throw error;
+        }
+    }
+
+    if((node == 'CENTRAL' || node == 'Vizmin') && island == 'Visayas'){ // get text report for luzon (most busy city, most busy hospital, most in demand specialization)
+        // set transaction level
+        await pool.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`);
+
+        // start transaction
+        await pool.query(`START TRANSACTION;`);
+
+        // execute sql query
+        try{
+            topCity = await pool.query(`SELECT city, COUNT(*) AS city_count FROM ${process.env.VIZMIN_TABLE} WHERE island="visayas"  GROUP BY city ORDER BY city_count DESC LIMIT 1;`);
+            await pool.query(`COMMIT;`);
+            console.log(topCity);
+            return topCity;
+        }
+        catch(error){
+            await pool.query(`ROLLBACK`);
+            throw error;
+        }
+    }
+
+    if((node == 'CENTRAL' || node == 'Vizmin') && island == 'Mindanao'){ // get text report for luzon (most busy city, most busy hospital, most in demand specialization)
+        // set transaction level
+        await pool.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`);
+
+        // start transaction
+        await pool.query(`START TRANSACTION;`);
+
+        // execute sql query
+        try{
+            topCity = await pool.query(`SELECT city, COUNT(*) AS city_count FROM ${process.env.VIZMIN_TABLE} WHERE island="mindanao"  GROUP BY city ORDER BY city_count DESC LIMIT 1;`);
+            await pool.query(`COMMIT;`);
+            console.log(topCity);
+            return topCity;
+        }
+        catch(error){
+            await pool.query(`ROLLBACK`);
+            throw error;
+        }
+    }
+}
+
+// Function to get the most indemand main specialty per island
+async function getTopSpecialization(island){
+    node = process.env.NODE;
+    let topSpecialty = '';
+
+    if((node == 'CENTRAL' || node == 'Luzon') && island == 'Luzon'){ // get text report for luzon (most busy city, most busy hospital, most in demand specialization
+        // set transaction level
+        await pool.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`);
+
+        // start transaction
+        await pool.query(`START TRANSACTION;`);
+
+        // execute sql query
+        try{
+            topSpecialty = await pool.query(`
+                SELECT mainspecialty, COUNT(*) AS popularity
+                FROM ${process.env.LUZON_TABLE}
+                WHERE mainspecialty IS NOT NULL and island = "Luzon"
+                GROUP BY mainspecialty
+                ORDER BY popularity DESC
+                LIMIT 1;
+            `);
+            await pool.query(`COMMIT;`);
+            console.log(topSpecialty);
+            return topSpecialty;
+        }
+        catch(error){
+            await pool.query(`ROLLBACK`);
+            throw error;
+        }
+    }
+
+    if((node == 'CENTRAL' || node == 'Vizmin') && island == 'Visayas'){ // get text report for luzon (most busy city, most busy hospital, most in demand specialization)
+        // set transaction level
+        await pool.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`);
+
+        // start transaction
+        await pool.query(`START TRANSACTION;`);
+
+        // execute sql query
+        try{
+            topSpecialty = await pool.query(`
+                SELECT mainspecialty, COUNT(*) AS popularity
+                FROM ${process.env.VIZMIN_TABLE}
+                WHERE mainspecialty IS NOT NULL and island = "Visayas"
+                GROUP BY mainspecialty
+                ORDER BY popularity DESC
+                LIMIT 1;
+            `);
+            await pool.query(`COMMIT;`);
+            console.log(topSpecialty);
+            return topSpecialty;
+        }
+        catch(error){
+            await pool.query(`ROLLBACK`);
+            throw error;
+        }
+    }
+
+    if((node == 'CENTRAL' || node == 'Vizmin') && island == 'Mindanao'){ // get text report for luzon (most busy city, most busy hospital, most in demand specialization)
+        // set transaction level
+        await pool.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`);
+
+        // start transaction
+        await pool.query(`START TRANSACTION;`);
+
+        // execute sql query
+        try{
+            topSpecialty = await pool.query(`
+                SELECT mainspecialty, COUNT(*) AS popularity
+                FROM ${process.env.VIZMIN_TABLE}
+                WHERE mainspecialty IS NOT NULL and island = "Mindanao"
+                GROUP BY mainspecialty
+                ORDER BY popularity DESC
+                LIMIT 1;
+            `);
+            await pool.query(`COMMIT;`);
+            console.log(topSpecialty);
+            return topSpecialty;
+        }
+        catch(error){
+            await pool.query(`ROLLBACK`);
+            throw error;
+        }
+    }
+}
+
+module.exports = {pool, insertAppointment, updateAppointment, deleteAppointment, searchAppointment, getTopCity, getTopHospital, getTopSpecialization}
