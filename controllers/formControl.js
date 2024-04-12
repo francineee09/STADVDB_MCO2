@@ -87,11 +87,49 @@ const formControl = {
             });
     
             const searchResult = await pool.searchAppointment(searchInfo.tablename, searchInfo.values, searchInfo.data);
-            console.log(searchInfo);
+            //console.log(searchInfo);
             console.log("Searched successfully!");
-            // return res.redirect('/');
 
-            res.render('index', { searchResult:searchResult });
+            let tableHtml = '<table class="appointment-table"> \
+                <tr class="appointment-headings"> \
+                    <th>Appointment ID</th> \
+                    <th>Type</th> \
+                    <th>Queuedate</th> \
+                    <th> Status </th> \
+                    <th> Patient ID </th>\
+                    <th> Patient Age </th>\
+                    <th> Patient Gender </th> \
+                    <th> Doctor ID </th>\
+                    <th> Main Specialty </th>\
+                    <th> Clinic ID </th> \
+                    <th> Hospital Name </th> \
+                    <th> City </th> \
+                    <th> Region </th> \
+                    <th> Island </th> \
+                </tr>';
+
+                searchResult.forEach(result => {
+                    tableHtml += `<tr class="appointment-results"> \
+                        <td>${result.apptId}</td> \
+                        <td>${result.type}</td> \
+                        <td>${result.queuedate}</td> \
+                        <td>${result.pxid} </td> \
+                        <td>${result.patients_age} </td> \
+                        <td>${result.gender} </td> \
+                        <td>${result.doctorid} </td> \
+                        <td>${result.mainspecialty} </td> \
+                        <td>${result.clinicid} </td> \
+                        <td>${result.hospitalname} </td> \
+                        <td>${result.city} </td> \
+                        <td>${result.province} </td> \
+                        <td>${result.regionname} </td> \
+                        <td>${result.island} </td> \
+                    </tr>`;
+                });
+
+                tableHtml += '</table>';
+                res.send(tableHtml); // Send the constructed HTML table
+            //res.render('index', { searchResult:searchResult });
         } catch (error) {
             console.error('Something went wrong:', error);
             return res.status(500).send('Internal Server Error');
