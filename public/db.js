@@ -1,4 +1,4 @@
-const { createPool } = require('mysql2');
+const { createPool } = require('mysql2/promise');
 require('dotenv').config();
 //console.log('Environment variables loaded:', process.env);
 
@@ -22,320 +22,455 @@ const central = createPool({
 
 // Insert new appointment record to the database
 async function insertAppointment(apptid, type, queuedate, status, pxid, patients_age, gender, doctorid, mainspecialty, clinicid, hospitalname, city, province, regionname, island){
-    if(process.env.NODE == 'CENTRAL'){
-        if(island == 'luzon'){
-            console.log('INSERTING INTO LUZON NODE');
-            central.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`, (error, result, fields) => {
-                if(error){ // error occurred in setting isolation level
-                    console.error('Error occurred in setting isolation level: ', error);
-                    return false;
-                }
-                else{ // no error in setting isolation level, begin transaction
-                    console.log('Isolation level set');
-                    central.query('START TRANSACTION;', (error, result, fields) => {
-                        if(error){ // error occurred in starting transaction
-                            console.error('Error occured in starting transaction', error);
-                            return false;
-                        }
-                        else{ // no error occurred in starting transaction, execute SQL
-                            console.log('Transaction started');
-                            // sql statement
-                            central.query(`
-                                INSERT INTO ${process.env.DATABASE}.${process.env.LUZON_TABLE}(apptid, type, queuedate, status, pxid, patients_age, gender, doctorid, mainspecialty, clinicid, hospitalname, city, province, regionname, island)
-                                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) FOR UPDATE;
-                                `, [apptid, type, queuedate, status, pxid, patients_age, gender, doctorid, mainspecialty, clinicid, hospitalname, city, province, regionname, island], (error, result, fields) => {
-                                if(error){
-                                    console.error('Error has occurred in executing statement: ', error);
-                                    central.query(`ROLLBACK;`, (error, result, fields) => {
-                                        if(error){ // error occurred in performing ROLLBACK
-                                            console.error('Error occurred in performing ROLLBACK: ', error);
-                                            return false;
-                                        }
-                                        else{
-                                            console.log('Rollback performed successfully');
-                                            return true;
-                                        }
-                                    });
-                                }
-                                else{
-                                    console.log(`Data inserted successfully for row with appt id: ${apptid}`);
-                                    central.query(`COMMIT;`, (error, result, fields) => {
-                                        if(error){
-                                            console.error('Error occurred in performing COMMIT: ', error);
-                                            return false;
-                                        }
-                                        else{
-                                            console.log('Commit performed successfully');
-                                            return true;
-                                        }
-                                    })
-                                    return true;
-                                }
-                            })
-                        }
-                    })
-                }
-            });
+    
+    // Set isolation level
+    await central.query(`SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;`);
+
+    // Start transaction
+    await central.query(`START TRANSACTION;`);
+
+    // Begin transaction
+    if(island == 'Luzon'){
+        try{
+            await central.query(`INSERT INTO ${process.env.DATABASE}.${process.env.LUZON_TABLE}(apptid, type, queuedate, status, pxid, patients_age, gender, doctorid, mainspecialty, clinicid, hospitalname, city, province, regionname, island) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`, [apptid, type, queuedate, status, pxid, patients_age, gender, doctorid, mainspecialty, clinicid, hospitalname, city, province, regionname, island])
+            // If no errors occur, commit
+            await central.query(`COMMIT`);
+            console.log('Data has been committed')
         }
-        else{
-            console.log('INSERTING INTO VIZMIN NODE');
-            central.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`, (error, result, fields) => {
-                if(error){ // error occurred in setting isolation level
-                    console.error('Error occurred in setting isolation level: ', error);
-                    return false;
-                }
-                else{ // no error in setting isolation level, begin transaction
-                    console.log('Isolation level set');
-                    central.query('START TRANSACTION;', (error, result, fields) => {
-                        if(error){ // error occurred in starting transaction
-                            console.error('Error occured in starting transaction', error);
-                            return false;
-                        }
-                        else{ // no error occurred in starting transaction, execute SQL
-                            console.log('Transaction started');
-                            // sql statement
-                            central.query(`
-                                INSERT INTO ${process.env.DATABASE}.${process.env.VIZMIN_TABLE}(apptid, type, queuedate, status, pxid, patients_age, gender, doctorid, mainspecialty, clinicid, hospitalname, city, province, regionname, island)
-                                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) FOR UPDATE;
-                            `, [apptid, type, queuedate, status, pxid, patients_age, gender, doctorid, mainspecialty, clinicid, hospitalname, city, province, regionname, island], (error, result, fields) => {
-                                if(error){
-                                    console.error('Error has occurred in executing statement: ', error);
-                                    central.query(`ROLLBACK;`, (error, result, fields) => {
-                                        if(error){ // error occurred in performing ROLLBACK
-                                            console.error('Error occurred in performing ROLLBACK: ', error);
-                                            return false;
-                                        }
-                                        else{
-                                            console.log('Rollback performed successfully');
-                                            return true;
-                                        }
-                                    });
-                                }
-                                else{
-                                    console.log(`Data inserted successfully for row with appt id: ${apptid}`);
-                                    central.query(`COMMIT;`, (error, result, fields) => {
-                                        if(error){
-                                            console.error('Error occurred in performing COMMIT: ', error);
-                                            return false;
-                                        }
-                                        else{
-                                            console.log('Commit performed successfully');
-                                            return true;
-                                        }
-                                    })
-                                    return true;
-                                }
-                            })
-                        }
-                    })
-                }
-            });
+        catch(error){
+            console.log('Error in inserting data');
+            await central.query(`ROLLBACK;`);
         }
     }
-    if(process.env.NODE == 'LUZON'){
-        if(process.env.NODE == 'CENTRAL'){
-            if(island == 'luzon'){
-                console.log('INSERTING INTO LUZON NODE');
-                pool.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`, (error, result, fields) => {
-                    if(error){ // error occurred in setting isolation level
-                        console.error('Error occurred in setting isolation level: ', error);
-                        return false;
-                    }
-                    else{ // no error in setting isolation level, begin transaction
-                        console.log('Isolation level set');
-                        pool.query('START TRANSACTION;', (error, result, fields) => {
-                            if(error){ // error occurred in starting transaction
-                                console.error('Error occured in starting transaction', error);
-                                return false;
-                            }
-                            else{ // no error occurred in starting transaction, execute SQL
-                                console.log('Transaction started');
-                                // sql statement
-                                pool.query(`
-                                    INSERT INTO ${process.env.DATABASE}.app_luzon(apptid, type, queuedate, status, pxid, patients_age, gender, doctorid, mainspecialty, clinicid, hospitalname, city, province, regionname, island)
-                                    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) FOR UPDATE;
-                                `, [apptid, type, queuedate, status, pxid, patients_age, gender, doctorid, mainspecialty, clinicid, hospitalname, city, province, regionname, island], (error, result, fields) => {
-                                    if(error){
-                                        console.error('Error has occurred in executing statement: ', error);
-                                        pool.query(`ROLLBACK;`, (error, result, fields) => {
-                                            if(error){ // error occurred in performing ROLLBACK
-                                                console.error('Error occurred in performing ROLLBACK: ', error);
-                                                return false;
-                                            }
-                                            else{
-                                                console.log('Rollback performed successfully');
-                                                return true;
-                                            }
-                                        });
-                                    }
-                                    else{
-                                        console.log(`Data inserted successfully for row with appt id: ${apptid}`);
-                                        pool.query(`COMMIT;`, (error, result, fields) => {
-                                            if(error){
-                                                console.error('Error occurred in performing COMMIT: ', error);
-                                                return false;
-                                            }
-                                            else{
-                                                console.log('Commit performed successfully');
-                                                return true;
-                                            }
-                                        })
-                                        return true;
-                                    }
-                                })
-                            }
-                        })
-                    }
-                });
-            }
+    else{
+        try{
+            await central.query(`INSERT INTO ${process.env.DATABASE}.${process.env.VIZMIN_TABLE}(apptid, type, queuedate, status, pxid, patients_age, gender, doctorid, mainspecialty, clinicid, hospitalname, city, province, regionname, island) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`, [apptid, type, queuedate, status, pxid, patients_age, gender, doctorid, mainspecialty, clinicid, hospitalname, city, province, regionname, island])
+            // If no errors occur, commit
+            await central.query(`COMMIT`);
+            console.log('Data has been committed')
+        }
+        catch(error){
+            console.log('Error in inserting data');
+            await central.query(`ROLLBACK;`);
+            console.log('ROLLBACK SUCCESSFUL');
+        }
     }
-    if(process.env.NODE == 'VIZMIN'){
-        console.log('INSERTING INTO VIZMIN NODE');
-            pool.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`, (error, result, fields) => {
-                if(error){ // error occurred in setting isolation level
-                    console.error('Error occurred in setting isolation level: ', error);
-                    return false;
-                }
-                else{ // no error in setting isolation level, begin transaction
-                    console.log('Isolation level set');
-                    pool.query('START TRANSACTION;', (error, result, fields) => {
-                        if(error){ // error occurred in starting transaction
-                            console.error('Error occured in starting transaction', error);
-                            return false;
-                        }
-                        else{ // no error occurred in starting transaction, execute SQL
-                            console.log('Transaction started');
-                            // sql statement
-                            pool.query(`
-                                INSERT INTO ${process.env.DATABASE}.${process.env.VIZMIN_TABLE}(apptid, type, queuedate, status, pxid, patients_age, gender, doctorid, mainspecialty, clinicid, hospitalname, city, province, regionname, island)
-                                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) FOR UPDATE;
-                            `, [apptid, type, queuedate, status, pxid, patients_age, gender, doctorid, mainspecialty, clinicid, hospitalname, city, province, regionname, island], (error, result, fields) => {
-                                if(error){
-                                    console.error('Error has occurred in executing statement: ', error);
-                                    pool.query(`ROLLBACK;`, (error, result, fields) => {
-                                        if(error){ // error occurred in performing ROLLBACK
-                                            console.error('Error occurred in performing ROLLBACK: ', error);
-                                            return false;
-                                        }
-                                        else{
-                                            console.log('Rollback performed successfully');
-                                            return true;
-                                        }
-                                    });
-                                }
-                                else{
-                                    console.log(`Data inserted successfully for row with appt id: ${apptid}`);
-                                    pool.query(`COMMIT;`, (error, result, fields) => {
-                                        if(error){
-                                            console.error('Error occurred in performing COMMIT: ', error);
-                                            return false;
-                                        }
-                                        else{
-                                            console.log('Commit performed successfully');
-                                            return true;
-                                        }
-                                    })
-                                    return true;
-                                }
-                            })
-                        }
-                    })
-                }
-            });
-    }
-}
 }
 // Delete an appointment based on apptid
 async function deleteAppointment(apptid, island){
-    if(island == 'luzon'){
-        pool.query(`SET TRANSACTION ISOLATION LEVEL READ`)
+    if(island == 'Luzon'){
+        // Set isolation level
+        await central.query(`SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;`);
+
+        // Begin transaction
+        await central.query(`START TRANSACTION;`);
+
+        // Execute query
+        try{
+            await central.query(`DELETE FROM ${process.env.LUZON_TABLE} WHERE apptid = ?`, [apptid]);
+            await central.query(`COMMIT;`);
+            console.log(`Successfully deleted appointment with id: ${apptid}`);
+        }
+        catch(error){
+            await central.query(`ROLLBACK`);
+            console.log('Error occurred. Rollback successful');
+            throw error;
+        }
     }
+
     else{
+        // Set isolation level
+        await central.query(`SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;`);
 
+        // Begin transaction
+        await central.query(`START TRANSACTION;`);
+
+        // Execute query
+        try{
+            await central.query(`DELETE FROM ${process.env.VIZMIN_TABLE} WHERE apptid = ?`, [apptid]);
+            await central.query(`COMMIT;`);
+            console.log(`Successfully deleted appointment with id: ${apptid}`);
+        }
+        catch(error){
+            await central.query(`ROLLBACK`);
+            console.log('Error occurred. Rollback successful');
+            throw error;
+        }
     }
-
-    pool.query(`DELETE FROM ${process.env.LUZON_TABLE} WHERE apptid = ?`, [apptid], (error, result, fields) => {
-        if(error)
-            console.error('Error has occurred in deleting row: ', error);
-        else
-            console.log(`Row with appt id: ${apptid} has been deleted successfully.`);
-    })
 }
 
 
 // HELPER FUNCTION TO DYNAMICALLY CREATE UPDATE, PRE-HANDLE: values.length == data.length
-function generateUPDATEQuery(tablename, apptid, values, data){
-    
-    const updateStatement = `UPDATE ${tablename} `;
-    let setStatement = 'SET ';
-    
-    // Generate SET part of query
-    for(let i = 0; i < values.length; i++){
-        // Process data: if value is not age, prepend and append the string '\''
-        if(values[i] != 'age')
-            data[i] = '\'' + data[i] + '\'';
-        setStatement = setStatement.concat(`${values[i]} = ${data[i]}, `);
+function generateUPDATEQuery(apptid, values, data) {
+    let island = '';
+
+    // GET table name;
+    for (let i = 0; i < values.length; i++) {
+        if (values[i] == 'island'){
+            console.log("ISLAND: " + data[i]);
+            island = data[i];
+        }
     }
 
-    // Remove final comma
-    setStatement = setStatement.slice(0, -2);
+    if (island == 'Luzon') {
+        const updateStatement = `UPDATE ${process.env.LUZON_TABLE} `;
+        let setStatement = ' SET ';
 
-    const whereStatement = ` WHERE apptid = '${apptid}';`;
+        // Generate SET part of query
+        for (let i = 0; i < values.length; i++) {
+            // Process data: if value is not age, prepend and append the string '\''
+            if (values[i] != 'age')
+                data[i] = '\'' + data[i] + '\'';
+            setStatement = setStatement.concat(`${values[i]} = ${data[i]}, `);
+        }
 
-    const query = updateStatement.concat(setStatement).concat(whereStatement);
-    return query;
+        // Remove final comma
+        setStatement = setStatement.slice(0, -2);
+
+        const whereStatement = ` WHERE apptid = '${apptid}';`;
+
+        const query = updateStatement.concat(setStatement).concat(whereStatement);
+        return query;
+    } else {
+        const updateStatement = `UPDATE ${process.env.VIZMIN_TABLE} `;
+        let setStatement = ' SET ';
+
+        // Generate SET part of query
+        for (let i = 0; i < values.length; i++) {
+            // Process data: if value is not age, prepend and append the string '\''
+            if (values[i] != 'age')
+                data[i] = '\'' + data[i] + '\'';
+            setStatement = setStatement.concat(`${values[i]} = ${data[i]}, `);
+        }
+
+        // Remove final comma
+        setStatement = setStatement.slice(0, -2);
+
+        const whereStatement = ` WHERE apptid = '${apptid}';`;
+
+        const query = updateStatement.concat(setStatement).concat(whereStatement);
+        return query;
+    }
 }
 
 // Perform UPDATE statement on database based on values
-async function updateAppointment(tablename, apptid, values, data){
-    const updateStatement = generateUPDATEQuery(tablename, apptid, values, data);
-    pool.query(updateStatement, (error, result, fields) => {
-        if(error)
-            console.error('Error has occurred in deleting row: ', error);
-        else
-            console.log(`Row with appt id: ${apptid} has been updated successfully.`);
-    })
+async function updateAppointment(apptid, values, data){
+    const updateStatement = generateUPDATEQuery(apptid, values, data);
+    console.log('UPDATE STATEMENT: ' + updateStatement);
+    // set isolation level
+    await central.query(`SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;`);
+
+    // begin transaction
+    await central.query(`START TRANSACTION;`);
+
+    // execute sql
+    try{
+        await central.query(updateStatement);
+        await central.query(`COMMIT;`);
+        console.log(`Data at apptid: ${apptid} successfully updated`);
+    }
+    catch(error){
+        await central.query(`ROLLBACK`);
+        console.error('Error occurred in updating data: ', error);
+        throw error;
+    }
 }
 
 // Search and view appointment records
 // HELPER FUNCTION TO DYNAMICALLY CREATE WHERE, PRE-HANDLE: values.length == data.length
-function generateSELECTQuery(tablename, values, data){
+function generateSELECTQuery(values, data){
     
-    const selectStatement = `SELECT * FROM ${tablename}`;
-    let whereStatement = ' WHERE ';
-    
-    // Generate WHERE part of query
-    for(let i = 0; i < values.length; i++){
-        // Process data: if value is not age, prepend and append the string '\''
-        if(values[i] != 'age')
-            data[i] = '\'' + data[i] + '\'';
-        whereStatement = whereStatement.concat(`${values[i]} = ${data[i]} AND `);
+    let island = '';
+
+    // GET table name;
+    for (let i = 0; i < values.length; i++) {
+        if (values[i] == 'island'){
+            console.log("ISLAND: " + data[i]);
+            island = data[i];
+        }
     }
 
-    // Remove final AND
-    whereStatement = whereStatement.slice(0, -5);
+    if(island == 'Luzon'){
+        const selectStatement = `SELECT * FROM ${process.env.LUZON_TABLE}`;
+        let whereStatement = ' WHERE ';
+        
+        // Generate WHERE part of query
+        for(let i = 0; i < values.length; i++){
+            // Process data: if value is not age, prepend and append the string '\''
+            if(values[i] != 'age')
+                data[i] = '\'' + data[i] + '\'';
+            whereStatement = whereStatement.concat(`${values[i]} = ${data[i]} AND `);
+        }
 
-    // const whereStatement = ` WHERE apptid = '${apptid}';`;
+        // Remove final AND
+        whereStatement = whereStatement.slice(0, -5);
 
-    const query = selectStatement.concat(whereStatement).concat(';');
-    return query;
+        // const whereStatement = ` WHERE apptid = '${apptid}';`;
+        const query = selectStatement.concat(whereStatement).concat('FOR SHARE;');
+        return query;
+    }
+    else{
+        const selectStatement = `SELECT * FROM ${process.env.VIZMIN_TABLE}`;
+        let whereStatement = ' WHERE ';
+        
+        // Generate WHERE part of query
+        for(let i = 0; i < values.length; i++){
+            // Process data: if value is not age, prepend and append the string '\''
+            if(values[i] != 'age')
+                data[i] = '\'' + data[i] + '\'';
+            whereStatement = whereStatement.concat(`${values[i]} = ${data[i]} AND `);
+        }
+
+        // Remove final AND
+        whereStatement = whereStatement.slice(0, -5);
+
+        // const whereStatement = ` WHERE apptid = '${apptid}';`;
+        const query = selectStatement.concat(whereStatement).concat('FOR UPDATE;');
+        return query;
+    }
 }
 
-async function searchAppointment(tablename, values, data) {
-    return new Promise((resolve, reject) => {
-        const selectStatement = generateSELECTQuery(tablename, values, data);
-        pool.query(selectStatement, (error, result, fields) => {
-            if (error) {
-                console.error('Error has occurred in searching row: ', error);
-                reject(error);
-            } else {
-                console.log(result);
-                resolve(result);
+async function searchAppointment(values, data) {
+    let island = '';
+
+    // GET table name;
+    for (let i = 0; i < values.length; i++) {
+        if (values[i] == 'island'){
+            console.log("ISLAND: " + data[i]);
+            island = data[i];
+        }
+    }
+
+    const selectStatement = generateSELECTQuery(values, data);
+    console.log('SELECT STATEMENT IS: ' + selectStatement);
+
+    if(process.env.NODE == 'CENTRAL'){
+        if(island == 'Luzon'){
+            await central.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`);
+
+            // start transaction
+            await central.query(`START TRANSACTION;`);
+
+            // execute query
+            try{
+                const result = await central.query(selectStatement);
+                await central.query(`COMMIT;`);
+                return result;
             }
-        });
-    });
+            catch(error){
+                await central.query(`ROLLBACK;`);
+                console.log('Error occurred. Rollback successful');
+                throw error;
+            }
+        }
+        else{
+            await central.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`);
+
+            // start transaction
+            await central.query(`START TRANSACTION;`);
+
+            // execute query
+            try{
+                const result = await central.query(selectStatement);
+                await central.query(`COMMIT;`);
+                return result;
+            }
+            catch(error){
+                await central.query(`ROLLBACK;`);
+                console.log('Error occurred. Rollback successful');
+                throw error;
+            }
+        }
+    }
+    if(process.env.NODE == 'LUZON'){
+        // set isolation level
+        await pool.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`);
+
+        // start transaction
+        await pool.query(`START TRANSACTION;`);
+
+        // execute query
+        try{
+            const result = await central.query(selectStatement);
+            await central.query(`COMMIT;`);
+            return result;
+        }
+        catch(error){
+            await pool.query(`ROLLBACK;`);
+            console.log('Error occurred. Rollback successful');
+            throw error;
+        }
+    }
+    if(process.env.NODE == ' VIZMIN'){
+        // set isolation level
+        await pool.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`);
+
+        // start transaction
+        await pool.query(`START TRANSACTION;`);
+
+        // execute query
+        try{
+            const result = await central.query(selectStatement);
+            await central.query(`COMMIT;`);
+            return result;
+        }
+        catch(error){
+            await pool.query(`ROLLBACK;`);
+            console.log('Error occurred. Rollback successful');
+            throw error;
+        }
+    }
 }
 
 // View a set of text-based reports; set of reports is to be determined by the team
+
+// Function to get the city with the most appointments per island
+async function getTopCity(island){
+    node = process.env.NODE;
+    let topCity = '';
+
+    if((node == 'CENTRAL' || node == 'Luzon') && island == 'Luzon'){ // get text report for luzon (most busy city, most busy hospital, most in demand specialization
+        // set transaction level
+        await pool.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`);
+
+        // start transaction
+        await pool.query(`START TRANSACTION;`);
+
+        // execute sql query
+        try{
+            topCity = await pool.query(`SELECT city, COUNT(*) AS city_count FROM app_luzon WHERE island="luzon"  GROUP BY city ORDER BY city_count DESC LIMIT 1;`);
+            await pool.query(`COMMIT;`);
+            console.log(topCity);
+            return topCity;
+        }
+        catch(error){
+            await pool.query(`ROLLBACK`);
+            throw error;
+        }
+    }
+
+    if((node == 'CENTRAL' || node == 'Vizmin') && island == 'Visayas'){ // get text report for luzon (most busy city, most busy hospital, most in demand specialization)
+        // set transaction level
+        await pool.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`);
+
+        // start transaction
+        await pool.query(`START TRANSACTION;`);
+
+        // execute sql query
+        try{
+            topCity = await pool.query(`SELECT city, COUNT(*) AS city_count FROM app_vizmin WHERE island="visayas"  GROUP BY city ORDER BY city_count DESC LIMIT 1;`);
+            await pool.query(`COMMIT;`);
+            console.log(topCity);
+            return topCity;
+        }
+        catch(error){
+            await pool.query(`ROLLBACK`);
+            throw error;
+        }
+    }
+
+    if((node == 'CENTRAL' || node == 'Vizmin') && island == 'Mindanao'){ // get text report for luzon (most busy city, most busy hospital, most in demand specialization)
+        // set transaction level
+        await pool.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`);
+
+        // start transaction
+        await pool.query(`START TRANSACTION;`);
+
+        // execute sql query
+        try{
+            topCity = await pool.query(`SELECT city, COUNT(*) AS city_count FROM app_vizmin WHERE island="mindanao"  GROUP BY city ORDER BY city_count DESC LIMIT 1;`);
+            await pool.query(`COMMIT;`);
+            console.log(topCity);
+            return topCity;
+        }
+        catch(error){
+            await pool.query(`ROLLBACK`);
+            throw error;
+        }
+    }
+}
+
+async function getTopHospital(island){
+    node = process.env.NODE;
+    let topCity = '';
+
+    if((node == 'CENTRAL' || node == 'Luzon') && island == 'Luzon'){ // get text report for luzon (most busy city, most busy hospital, most in demand specialization
+        // set transaction level
+        await pool.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`);
+
+        // start transaction
+        await pool.query(`START TRANSACTION;`);
+
+        // execute sql query
+        try{
+            topHospital = await pool.query(`
+                SELECT hospitalname, COUNT(*) AS hospital_count
+                FROM ${process.env.LUZON_TABLE}
+                WHERE hospitalname IS NOT NULL and island = "Luzon"
+                GROUP BY hospitalname
+                LIMIT 1;
+            `);
+            await pool.query(`COMMIT;`);
+            console.log(topHospital);
+            return topHospital;
+        }
+        catch(error){
+            await pool.query(`ROLLBACK`);
+            throw error;
+        }
+    }
+
+    if((node == 'CENTRAL' || node == 'Vizmin') && island == 'Visayas'){ // get text report for luzon (most busy city, most busy hospital, most in demand specialization)
+        // set transaction level
+        await pool.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`);
+
+        // start transaction
+        await pool.query(`START TRANSACTION;`);
+
+        // execute sql query
+        try{
+            topHospital = await pool.query(`
+                SELECT hospitalname, COUNT(*) AS hospital_count
+                FROM ${process.env.VIZMIN_TABLE}
+                WHERE hospitalname IS NOT NULL and island = "Visayas"
+                GROUP BY hospitalname
+                LIMIT 1;
+            `);
+            await pool.query(`COMMIT;`);
+            console.log(topHospital);
+            return topHospital;
+        }
+        catch(error){
+            await pool.query(`ROLLBACK`);
+            throw error;
+        }
+    }
+
+    if((node == 'CENTRAL' || node == 'Vizmin') && island == 'Mindanao'){ // get text report for luzon (most busy city, most busy hospital, most in demand specialization)
+        // set transaction level
+        await pool.query(`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;`);
+
+        // start transaction
+        await pool.query(`START TRANSACTION;`);
+
+        // execute sql query
+        try{
+            topHospital = await pool.query(`
+                SELECT hospitalname, COUNT(*) AS hospital_count
+                FROM ${process.env.VIZMIN_TABLE}
+                WHERE hospitalname IS NOT NULL and island = "Mindanao"
+                GROUP BY hospitalname
+                LIMIT 1;
+            `);
+            await pool.query(`COMMIT;`);
+            console.log(topHospital);
+            return topHospital;
+        }
+        catch(error){
+            await pool.query(`ROLLBACK`);
+            throw error;
+        }
+    }
+}
 
 module.exports = {pool, insertAppointment, updateAppointment, deleteAppointment, searchAppointment}

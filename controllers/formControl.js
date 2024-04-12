@@ -28,7 +28,6 @@ const formControl = {
     async updateForm(req, res){
         try {
             const updateInfo = {
-                tablename: process.env.TABLE,
                 apptid: req.body.updateApptId,
                 values: [], 
                 data: []
@@ -47,7 +46,7 @@ const formControl = {
                 return res.status(200).send('No fields to update.');
             }
 
-            await pool.updateAppointment(updateInfo.tablename, updateInfo.apptid, updateInfo.values, updateInfo.data);
+            await pool.updateAppointment(updateInfo.apptid, updateInfo.values, updateInfo.data);
             console.log(updateInfo);
 
             const backButtonHtml = '<button onclick="window.history.back()">Back</button>';
@@ -79,7 +78,6 @@ const formControl = {
     async searchForm(req, res) {
         try {
             const searchInfo = {
-                tablename: process.env.TABLE,
                 values: [],
                 data: []
             };
@@ -93,7 +91,7 @@ const formControl = {
                 }
             });
     
-            const searchResult = await pool.searchAppointment(searchInfo.tablename, searchInfo.values, searchInfo.data);
+            const searchResult = await pool.searchAppointment(searchInfo.values, searchInfo.data);
             console.log("Search Result:", searchResult);
             console.log("Searched successfully!");
 
