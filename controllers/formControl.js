@@ -90,50 +90,62 @@ const formControl = {
             console.log("Search Result:", searchResult);
             console.log("Searched successfully!");
 
-            let tableHtml = '<table class="appointment-table"> \
-            <tr class="appointment-headings"> \
-                <th>Appointment ID</th> \
-                <th>Type</th> \
-                <th>Queuedate</th> \
-                <th> Status </th> \
-                <th> Patient ID </th>\
-                <th> Patient Age </th>\
-                <th> Patient Gender </th> \
-                <th> Doctor ID </th>\
-                <th> Main Specialty </th>\
-                <th> Clinic ID </th> \
-                <th> Hospital Name </th> \
-                <th> City </th> \
-                <th> Region </th> \
-                <th> Island </th> \
-            </tr>';
+            let tableHtml = `
+            <a href="/" style="text-decoration: none; padding: 8px 16px; background-color: rgb(141, 67, 67); color: white; border-radius: 4px; margin-bottom: 10px; display: inline-block;">Back</a>
+            <div style="overflow-x: auto;">
+                <table class="appointment-table" style="border-collapse: collapse; width: 100%;">
+                    <tr class="appointment-headings" style="background-color: #f2f2f2;">
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Appointment ID</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Type</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Queuedate</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Status</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Patient ID</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Patient Age</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Patient Gender</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Doctor ID</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Main Specialty</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Clinic ID</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Hospital Name</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">City</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Region</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Province</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Island</th>
+                    </tr>
+        `;
 
-            if (Array.isArray(searchResult) && searchResult.length > 0) {
-                searchResult.forEach(result => {
-                    tableHtml += `<tr class="appointment-results"> \
-                        <td>${result.apptid}</td> \
-                        <td>${result.type}</td> \
-                        <td>${result.queuedate}</td> \
-                        <td>${result.statuss} </td> \
-                        <td>${result.pxid} </td> \
-                        <td>${result.patients_age} </td> \
-                        <td>${result.gender} </td> \
-                        <td>${result.doctorid} </td> \
-                        <td>${result.mainspecialty} </td> \
-                        <td>${result.clinicid} </td> \
-                        <td>${result.hospitalname} </td> \
-                        <td>${result.city} </td> \
-                        <td>${result.province} </td> \
-                        <td>${result.regionname} </td> \
-                        <td>${result.island} </td> \
-                    </tr>`;
-                });
-            } else {
-                tableHtml += `<tr><td colspan="15">No results found</td></tr>`;
-            }
+        // Loop through searchResult and add table rows with data
+        if (Array.isArray(searchResult) && searchResult.length > 0) {
+            searchResult.forEach(result => {
+                tableHtml += `
+                    <tr class="appointment-results" style="background-color: #ffffff;">
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${result.apptid}</td>
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${result.type}</td>
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${result.queuedate}</td>
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${result.status}</td>
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${result.pxid}</td>
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${result.patients_age}</td>
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${result.gender}</td>
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${result.doctorid}</td>
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${result.mainspecialty}</td>
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${result.clinicid}</td>
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${result.hospitalname}</td>
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${result.city}</td>
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${result.province}</td>
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${result.regionname}</td>
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${result.island}</td>
+                    </tr>
+                `;
+            });
+        } else {
+            tableHtml += `
+                <tr>
+                    <td colspan="15" style="border: 1px solid #dddddd; text-align: center; padding: 8px;">No results found</td>
+                </tr>
+            `;
+        }
 
-            tableHtml += '</table>';
-            res.send(tableHtml); // Send the constructed HTML table
+        tableHtml += '</table></div>';
+        res.send(tableHtml); // Send the constructed HTML table
         } catch (error) {
             console.error('Something went wrong:', error);
             return res.status(500).send('Internal Server Error');

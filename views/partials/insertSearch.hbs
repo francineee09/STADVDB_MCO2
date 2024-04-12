@@ -1,4 +1,108 @@
         <section class="input-container">
+            
+            <!-- Search and View an Appointment -->
+            <div class="view-outer-container">
+                <div class="view-inner-container">
+                    <h3> Search and View Appointments </h3>
+                    
+                    <form action="/search", method="post"> 
+                        <div class="row">
+                            <!-- apptid -->
+                            <div class="col">
+                                <input type="text" class="form-control" id="searchApptId" name="searchApptId" placeholder="Appointment ID">
+                            </div>
+                            <!-- queuedate -->
+                            <div class="col">
+                                <input type="datetime-local" class="form-control"  id="searchQueuedate" name="searchQueuedate" placeholder="Appointment Date">
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <!-- pxid-->
+                            <div class="col">
+                                <input type="text" class="form-control" id="searchPatientID" name="searchPxId" placeholder="Patient ID">
+                            </div>
+                            <!-- patients_age -->
+                            <div class="col">
+                                <input type="number" class="form-control" id="searchPatientAge"  name="searchPatients_Age" placeholder="Patient age">
+                            </div>
+                            <!--- gender -->
+                            <div class="col">
+                                <input type="text" class="form-control" id="searchPatientGender" name="searchGender" nameplaceholder="Patient Gender">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!--- doctorid -->
+                            <div class="col">
+                                <input type="text" class="form-control" id="searchDoctorID" name="searchDoctorId" placeholder="Doctor ID">
+                            </div>
+                            <!-- mainspecialty -->
+                            <div class="col">
+                                <input type="text" class="form-control" id="searchMainSpecialty"  name="searchMainSpecialty" placeholder="Main Specialty">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- clinicid -->
+                            <div class="col">
+                                <input type="text" class="form-control" id="searchClientID" name="searchClientId" placeholder="Clinic ID">
+                            </div>
+                            <!-- hospitalname -->
+                            <div class="col">
+                                <input type="text" class="form-control" id="searchHospitalName" name="searchHospitalName" placeholder="Hospital Name">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- city -->
+                            <div class="col">
+                                <input type="text" class="form-control" id="searchCity" name="searchCity" placeholder="City">
+                            </div>
+                            <!-- regionname -->
+                            <div class="col">
+                                <input type="text" class="form-control" id="searchRegion" name="searchRegion" placeholder="Region">
+                            </div>
+                            <!-- province -->
+                            <div class="col">
+                                <input type="text" class="form-control" id="searchProvince" name="searchProvince" placeholder="Province">
+                            </div>
+                        </div>
+
+                        <div class="dropdown-row">
+                            <!-- island -->
+                            <label for="island"> Island: </label>
+                            <select name="searchIsland" id="searchIsland">
+                                <option value="luzon"> Luzon </option>
+                                <option value="visayas"> Visayas </option>
+                                <option value="mindanao"> Mindanao </option>
+                            </select>
+
+                            <!-- status -->
+                            <label for="status"> Status: </label>
+                            <select name="searchStatus" id="searchStatus">
+                                <option value="complete"> Complete </option>
+                                <option value="queued"> Queued </option>
+                                <option value="serving"> Serving </option>
+                                <option value="skip"> Skip </option>
+                                <option value="cancel"> Cancel </option>
+                            </select>
+
+                            <!-- type -->
+                            <label for="type"> Type: </label>
+                            <select name="searchType" id="searchType" required>
+                                <option value="consultation"> Consultation </option>
+                                <option value="inpatietn"> Inpatient </option>
+                            </select>
+                        </div>
+                        
+                        <div class="btn-container">
+                            <button id="view-submit-btn"> Search </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
             <!-- Insert new appointment -->
             <div class="insert-outer-container">
                 <div class="insert-inner-container">
@@ -220,146 +324,4 @@
                     </form>
                 </div>
             </div>
-
-            <!-- Search and View an Appointment -->
-            <div class="view-outer-container">
-                <div class="view-inner-container">
-                    <h3> Search and View Appointments </h3>
-                    
-                    <form action="/search", method="post"> 
-                        <div class="row">
-                            <!-- apptid -->
-                            <div class="col">
-                                <input type="text" class="form-control" id="searchApptId" name="searchApptId" placeholder="Appointment ID">
-                            </div>
-                            <!-- queuedate -->
-                            <div class="col">
-                                <input type="datetime-local" class="form-control"  id="searchQueuedate" name="searchQueuedate" placeholder="Appointment Date">
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <!-- pxid-->
-                            <div class="col">
-                                <input type="text" class="form-control" id="searchPatientID" name="searchPxId" placeholder="Patient ID">
-                            </div>
-                            <!-- patients_age -->
-                            <div class="col">
-                                <input type="number" class="form-control" id="searchPatientAge"  name="searchPatients_Age" placeholder="Patient age">
-                            </div>
-                            <!--- gender -->
-                            <div class="col">
-                                <input type="text" class="form-control" id="searchPatientGender" name="searchGender" nameplaceholder="Patient Gender">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <!--- doctorid -->
-                            <div class="col">
-                                <input type="text" class="form-control" id="searchDoctorID" name="searchDoctorId" placeholder="Doctor ID">
-                            </div>
-                            <!-- mainspecialty -->
-                            <div class="col">
-                                <input type="text" class="form-control" id="searchMainSpecialty"  name="searchMainSpecialty" placeholder="Main Specialty">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <!-- clinicid -->
-                            <div class="col">
-                                <input type="text" class="form-control" id="searchClientID" name="searchClientId" placeholder="Clinic ID">
-                            </div>
-                            <!-- hospitalname -->
-                            <div class="col">
-                                <input type="text" class="form-control" id="searchHospitalName" name="searchHospitalName" placeholder="Hospital Name">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <!-- city -->
-                            <div class="col">
-                                <input type="text" class="form-control" id="searchCity" name="searchCity" placeholder="City">
-                            </div>
-                            <!-- regionname -->
-                            <div class="col">
-                                <input type="text" class="form-control" id="searchRegion" name="searchRegion" placeholder="Region">
-                            </div>
-                            <!-- province -->
-                            <div class="col">
-                                <input type="text" class="form-control" id="searchProvince" name="searchProvince" placeholder="Province">
-                            </div>
-                        </div>
-
-                        <div class="dropdown-row">
-                            <!-- island -->
-                            <label for="island"> Island: </label>
-                            <select name="searchIsland" id="searchIsland">
-                                <option value="luzon"> Luzon </option>
-                                <option value="visayas"> Visayas </option>
-                                <option value="mindanao"> Mindanao </option>
-                            </select>
-
-                            <!-- status -->
-                            <label for="status"> Status: </label>
-                            <select name="searchStatus" id="searchStatus">
-                                <option value="complete"> Complete </option>
-                                <option value="queued"> Queued </option>
-                                <option value="serving"> Serving </option>
-                                <option value="skip"> Skip </option>
-                                <option value="cancel"> Cancel </option>
-                            </select>
-
-                            <!-- type -->
-                            <label for="type"> Type: </label>
-                            <select name="searchType" id="searchType" required>
-                                <option value="consultation"> Consultation </option>
-                                <option value="inpatietn"> Inpatient </option>
-                            </select>
-                        </div>
-                        
-                        <div class="btn-container">
-                            <button id="view-submit-btn"> Search </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <table class="appointment-table"> 
-                <tr class="appointment-headings">
-                    <th> Appointment ID </th>
-                    <th> Type </th>
-                    <th> Queuedate </th>
-                    <th> Status </th>
-                    <th> Patient ID </th>
-                    <th> Patient Age </th>
-                    <th> Patient Gender </th>
-                    <th> Doctor ID </th>
-                    <th> Main Specialty </th>
-                    <th> Clinic ID </th>
-                    <th> Hospital Name </th>
-                    <th> City </th>
-                    <th> Region </th>
-                    <th> Island </th>
-                </tr>
-
-                <!-- table results -->
-                {{!-- {{#each searchResult}}
-                    <tr class="appointment-results">
-                        <td>{{this.apptid}}</td>
-                        <td>{{this.type}}</td>
-                        <td>{{this.queuedate}}</td>
-                        <td>{{this.pxid}} </td>
-                        <td>{{this.patients_age}} </td>
-                        <td>{{this.gender}} </td>
-                        <td>{{this.doctorid}} </td>
-                        <td>{{this.mainspecialty}} </td>
-                        <td>{{this.clinicid}} </td>
-                        <td>{{this.hospitalname}} </td>
-                        <td>{{this.city}} </td>
-                        <td>{{this.province}} </td>
-                        <td>{{this.regionname}} </td>
-                        <td>{{this.island}} </td>
-                    </tr>
-                {{/each}} --}}
-            </table>
         </section> 

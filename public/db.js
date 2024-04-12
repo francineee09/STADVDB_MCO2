@@ -108,16 +108,6 @@ async function searchAppointment(tablename, values, data) {
     });
 }
 
-// async function searchAppointment(tablename, values, data){
-//     selectStatement = generateSELECTQuery(tablename, values, data);
-//     pool.query(selectStatement, (error, result, fields) => {
-//         if(error)
-//             console.error('Error has occurred in searching row: ', error);
-//         else
-//             console.log(result);
-//     })  
-// }
-
 // View a set of text-based reports; set of reports is to be determined by the team
 
 module.exports = {pool, insertAppointment, updateAppointment, deleteAppointment, searchAppointment}
