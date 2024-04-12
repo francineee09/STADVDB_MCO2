@@ -395,9 +395,23 @@
                     <h3> Delete an appointment </h3>
                     
                     <form action="/delete", method="post"> 
-                        <div class="col">
+                        <div class="row">
+                            <!-- apptid -->
+                            <div class="col">
                                 <input type="text" class="form-control" id="deleteApptId" name="deleteApptId" placeholder="Appointment ID" required>
+                            </div>
+
+                            <div class="col" id="col-island">
+                                <!-- island -->
+                                <label for="island"> Island: </label>
+                                <select name="deleteIsland" id="deleteIsland">
+                                    <option value="Luzon"> Luzon </option>
+                                    <option value="Visayas"> Visayas </option>
+                                    <option value="Mindanao"> Mindanao </option>
+                                </select>
+                            </div>
                         </div>
+
                         <div class="btn-container">
                             <button id="view-submit-btn"> Delete </button>
                         </div>

@@ -62,8 +62,10 @@ const formControl = {
     async deleteForm(req, res) {
         try {
             const apptID = req.body.deleteApptId;
-            console.log(apptID);
-            pool.deleteAppointment(apptID);
+            const island = req.body.deleteIsland;
+
+            console.log(apptID, island);
+            pool.deleteAppointment(apptID, island);
 
             const backButtonHtml = '<button onclick="window.history.back()">Back</button>';
             const successMessage = 'Data deleted successfully. ' + backButtonHtml;
