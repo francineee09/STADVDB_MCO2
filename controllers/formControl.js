@@ -119,8 +119,8 @@ const formControl = {
         `;
 
         // Loop through searchResult and add table rows with data
-        if (Array.isArray(searchResult) && searchResult.length > 0) {
-            searchResult.forEach(result => {
+        if (Array.isArray(searchResult[0]) && searchResult[0].length > 0) {
+            searchResult[0].forEach(result => {
                 tableHtml += `
                     <tr class="appointment-results" style="background-color: #ffffff;">
                         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${result.apptid}</td>
