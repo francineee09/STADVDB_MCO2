@@ -22,13 +22,6 @@ app.engine('hbs', hbs.engine({extname:'hbs'}));
 app.set('view engine', 'hbs');
 app.set('views', './views');
 
-// app.get('/', (req, res) => {
-//     // Render static html file (temporary)
-//     res.sendFile(path.join(__dirname, 'public', 'index.html'));
-//     res.render('index');
-// })
-
-// render index
 app.get('/', indexControl.showHome);
 app.post('/insert', formControl.insertForm);
 app.post('/update', formControl.updateForm);
