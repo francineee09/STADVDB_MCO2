@@ -1,38 +1,3 @@
-       <section class="input-container">
-            <form action="/genCity", method="post"> 
-                <div class="row" id="top-city-row">
-                    <select name="getTopCity" id="topCity">
-                        <option value="Luzon"> Luzon </option>
-                        <option value="Visayas"> Visayas </option>
-                        <option value="Miandanao"> Mindanao </option>
-                    </select>
-                    <button id="top-city-btn"> Get top city</button>
-                </div>
-            </form>
-
-            <form action="/genSpec", method="post"> 
-                <div class="row" id="top-spec-row">
-                    <select name="getTopSpec" id="topSpec">
-                        <option value="Luzon"> Luzon </option>
-                        <option value="Visayas"> Visayas </option>
-                        <option value="Miandanao"> Mindanao </option>
-                    </select>
-                    <button id="top-special-btn">Get Top Specialization</button>
-                </div>
-            </form>
-
-            <form action="/genHospi", method="post"> 
-                <div class="row" id="top-hosp-row">
-                    <select name="getTopHospi" id="topHosp">
-                        <option value="Luzon"> Luzon </option>
-                        <option value="Visayas"> Visayas </option>
-                        <option value="Miandanao"> Mindanao </option>
-                    </select>
-                    <button id="top-hosp-btn">Get Top Hospital</button>
-                </div>
-            </form>
-       </section>
-       
         <section class="input-container">
             <!-- Search and View an Appointment -->
             <div class="search-outer-container">
@@ -448,6 +413,48 @@
 
                         <div class="btn-container">
                             <button id="view-submit-btn"> Delete </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="search-outer-container">
+                <div class="search-inner-container">
+                    <h3> Text-Based Results </h3>
+
+                    <h5> Top City Per Island </h5>
+                    <form action="/genCity", method="post"> 
+                        <div class="row" id="top-city-row">
+                            <select name="getTopCity" id="topCity">
+                                <option value="Luzon"> Luzon </option>
+                                <option value="Visayas"> Visayas </option>
+                                <option value="Miandanao"> Mindanao </option>
+                            </select>
+                            <button id="top-city-btn"> Get top city</button>
+                        </div>
+                    </form>
+
+                    <h5> Top Specialization Per Island </h5>
+                    <form action="/genSpec", method="post"> 
+                        <div class="row" id="top-spec-row">
+                            <select name="getTopSpec" id="topSpec">
+                                <option value="Luzon"> Luzon </option>
+                                <option value="Visayas"> Visayas </option>
+                                <option value="Miandanao"> Mindanao </option>
+                            </select>
+                            <button id="top-special-btn">Get Top Specialization</button>
+                        </div>
+                    </form>
+
+                    <h5> Top Hospital Per Island </h5>
+                    <form action="/genHospi", method="post"> 
+                        <div class="row" id="top-hosp-row">
+                            <select name="getTopHospi" id="topHosp">
+                                <option value="Luzon"> Luzon </option>
+                                <option value="Visayas"> Visayas </option>
+                                <option value="Miandanao"> Mindanao </option>
+                            </select>
+                            <button id="top-hosp-btn">Get Top Hospital</button>
                         </div>
                     </form>
                 </div>
